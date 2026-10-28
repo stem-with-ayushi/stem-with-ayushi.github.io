@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sub-Microscopic Neutralization Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --surface: #121826;
+            --border: #243049;
+            --primary: #3b82f6;
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #f1f5f9;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-red { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .badge-green { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+        .sim-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #060911;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas { display: block; width: 100%; height: 100%; }
+
+        .controls {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.7rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-secondary {
+            background: #243049;
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: #334155;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 1.4rem;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        .equation-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: rgba(6, 9, 17, 0.85);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .panel-grid { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel-grid">
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">Sub-Microscopic Neutralization Engine</h2>
+                        <span class="badge badge-red">Kinetics &amp; Collision Theory</span>
+                    </div>
+                    <div class="sim-canvas-container">
+                        <canvas id="neutralizationCanvas" width="600" height="380"></canvas>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button class="btn" onclick="injectIons()">💧 Inject H⁺ &amp; OH⁻ Ions</button>
+                    <button class="btn btn-secondary" onclick="clearIons()">🔄 Reset Solution</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">Thermochemical Energy Model</h2>
+                        <span class="badge badge-green">ΔH = -57.1 kJ/mol</span>
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>Bond Breaking is Endothermic (ΔH > 0):</strong> Hydration energy is absorbed to disrupt the aqueous solvation shells surrounding H⁺ and OH⁻.</li>
+                        <li><strong>Bond Forming is Exothermic (ΔH < 0):</strong> When H⁺ and OH⁻ collide with sufficient activation energy (Eₐ), a powerful covalent O—H bond snaps together.</li>
+                        <li><strong>Net Enthalpy Release:</strong> Because the newly formed covalent bond is significantly stronger than the broken solvation bonds, excess thermal energy is dumped into surrounding water molecules, raising temperature!</li>
+                    </ul>
+                </div>
+
+                <div class="equation-box">
+                    <h4 style="font-size: 0.85rem; color: #60a5fa; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Net Ionic Reaction Equation</h4>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; color: #f8fafc;">
+                        H⁺(aq) + OH⁻(aq) → H₂O(l)
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Spectator ions (Na⁺, Cl⁻) do not participate in bond breaking or forming!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('neutralizationCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        class Particle {
+            constructor(type, x, y) {
+                this.type = type; // 'H', 'OH', 'H2O'
+                this.x = x || Math.random() * (canvas.width - 60) + 30;
+                this.y = y || Math.random() * (canvas.height - 60) + 30;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = (Math.random() - 0.5) * 3;
+                this.radius = type === 'H' ? 10 : (type === 'OH' ? 14 : 18);
+                this.energy = 0;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                if (this.type === 'H') {
+                    ctx.fillStyle = '#ef4444';
+                    ctx.shadowColor = 'rgba(239, 68, 68, 0.6)';
+                } else if (this.type === 'OH') {
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.shadowColor = 'rgba(59, 130, 246, 0.6)';
+                } else {
+                    ctx.fillStyle = '#10b981';
+                    ctx.shadowColor = 'rgba(16, 185, 129, 0.7)';
+                }
+                ctx.shadowBlur = 12;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 11px JetBrains Mono, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const label = this.type === 'H' ? 'H⁺' : (this.type === 'OH' ? 'OH⁻' : 'H₂O');
+                ctx.fillText(label, this.x, this.y);
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) this.vx *= -1;
+                if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) this.vy *= -1;
+            }
+        }
+
+        function injectIons() {
+            for (let i = 0; i < 6; i++) {
+                particles.push(new Particle('H'));
+                particles.push(new Particle('OH'));
+            }
+        }
+
+        function clearIons() {
+            particles = [];
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Collision check H+ and OH-
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p1 = particles[i];
+                    let p2 = particles[j];
+
+                    if ((p1.type === 'H' && p2.type === 'OH') || (p1.type === 'OH' && p2.type === 'H')) {
+                        let dx = p2.x - p1.x;
+                        let dy = p2.y - p1.y;
+                        let dist = Math.hypot(dx, dy);
+
+                        if (dist < p1.radius + p2.radius) {
+                            // Synthesize H2O
+                            particles.splice(j, 1);
+                            particles.splice(i, 1);
+                            particles.push(new Particle('H2O', (p1.x + p2.x)/2, (p1.y + p2.y)/2));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(loop);
+        }
+
+        // Initialize with default pool
+        injectIons();
+        loop();
+    </script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic pH Indicator Spectrum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --surface: #121826;
+            --border: #243049;
+            --primary: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #f1f5f9;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+        .ph-slider-box {
+            margin: 1.5rem 0;
+            background: rgba(6, 9, 17, 0.7);
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .ph-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 20px;
+            border-radius: 10px;
+            background: linear-gradient(to right, 
+                #ef4444 0%, #f97316 20%, #eab308 40%, 
+                #10b981 50%, #06b6d4 70%, #3b82f6 85%, #8b5cf6 100%
+            );
+            outline: none;
+            cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .ph-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #0f172a;
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            cursor: grab;
+            transition: transform 0.1s;
+        }
+
+        .ph-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .ph-metric-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(6, 9, 17, 0.85);
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .ph-value-display {
+            font-size: 3.2rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+            color: #10b981;
+            transition: color 0.3s;
+        }
+
+        .ph-details h4 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            color: #f8fafc;
+        }
+
+        .ph-details p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .indicator-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator-pill {
+            padding: 1.1rem;
+            border-radius: 12px;
+            background: rgba(6, 9, 17, 0.6);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .indicator-pill h5 {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .color-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            border: 2px solid rgba(255,255,255,0.4);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 1.4rem;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        @media (max-width: 900px) {
+            .panel-grid { grid-template-columns: 1fr; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel-grid">
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">Interactive Logarithmic pH Simulator</h2>
+                        <span class="badge badge-blue">Universal Indicator Gradient</span>
+                    </div>
+
+                    <div class="ph-slider-box">
+                        <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            DRAG TO EXPLORE pH (0.0 to 14.0):
+                        </label>
+                        <input type="range" min="0" max="14" step="0.1" value="7" class="ph-slider" id="phInput" oninput="updatePH(this.value)">
+                    </div>
+
+                    <div class="ph-metric-card" id="phMetricCard">
+                        <div class="ph-details">
+                            <h4 id="substanceName">Pure Neutral Water</h4>
+                            <p id="ionRatio">[H⁺] = 10⁻⁷ mol/dm³ | Neutral Homeostasis</p>
+                        </div>
+                        <div class="ph-value-display" id="phNumber">7.0</div>
+                    </div>
+                </div>
+
+                <div class="indicator-row">
+                    <div class="indicator-pill">
+                        <h5>Litmus Paper</h5>
+                        <div class="color-dot" id="litmusDot" style="background: #a855f7;"></div>
+                        <span id="litmusText" style="font-size: 0.82rem; font-weight: 700;">Purple</span>
+                    </div>
+                    <div class="indicator-pill">
+                        <h5>Phenolphthalein</h5>
+                        <div class="color-dot" id="phenolDot" style="background: rgba(255,255,255,0.2);"></div>
+                        <span id="phenolText" style="font-size: 0.82rem; font-weight: 700;">Colorless</span>
+                    </div>
+                    <div class="indicator-pill">
+                        <h5>Methyl Orange</h5>
+                        <div class="color-dot" id="methylDot" style="background: #eab308;"></div>
+                        <span id="methylText" style="font-size: 0.82rem; font-weight: 700;">Yellow</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <h2 class="card-title">Logarithmic Scale &amp; Biological Systems</h2>
+                        <span class="badge badge-amber">10× Ion Gradient</span>
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>pH is Logarithmic:</strong> pH = -log₁₀[H⁺]. Every 1-unit shift is a <strong>TEN-FOLD (10×)</strong> change in free hydrogen ion concentration.</li>
+                        <li><strong>Stomach Acid vs Water:</strong> pH 1 gastric juice has <strong>1,000,000×</strong> more H⁺ ions per cm³ than pH 7 pure water!</li>
+                        <li><strong>Human Blood Homeostasis:</strong> Human arterial blood is strictly buffered between pH 7.35 and 7.45. A drop below 7.2 causes fatal acidosis.</li>
+                        <li><strong>Duodenal Neutralization:</strong> The pancreas rapidly neutralizes acidic stomach chyme from pH 1.5 to 8.0 via sodium bicarbonate (NaHCO₃).</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(6, 9, 17, 0.85); border-radius: 12px; border: 1px solid var(--border);">
+                    <h4 style="font-size: 0.82rem; color: #fbbf24; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Mathematical Definition</h4>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; color: #f8fafc;">
+                        [H⁺] = 10⁻ᵖᴴ mol/dm³ &nbsp;|&nbsp; pH + pOH = 14
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const benchmarks = {
+            0: { name: "1.0 M Hydrochloric Acid (HCl)", ratio: "[H⁺] = 1.0 mol/dm³" },
+            1: { name: "Gastric Stomach Acid", ratio: "[H⁺] = 0.1 mol/dm³" },
+            2: { name: "Lemon Juice / Vinegar", ratio: "[H⁺] = 0.01 mol/dm³" },
+            3: { name: "Carbonated Soda Drinks", ratio: "[H⁺] = 10⁻³ mol/dm³" },
+            4: { name: "Tomato Juice / Acid Rain", ratio: "[H⁺] = 10⁻⁴ mol/dm³" },
+            5: { name: "Black Coffee", ratio: "[H⁺] = 10⁻⁵ mol/dm³" },
+            6: { name: "Fresh Cow's Milk / Saliva", ratio: "[H⁺] = 10⁻⁶ mol/dm³" },
+            7: { name: "Pure Neutral Water", ratio: "[H⁺] = 10⁻⁷ mol/dm³" },
+            7.4: { name: "Human Arterial Blood", ratio: "[H⁺] = 4 × 10⁻⁸ mol/dm³" },
+            8.5: { name: "Sea Water / Baking Soda", ratio: "[OH⁻] = 3 × 10⁻⁶ mol/dm³" },
+            9.5: { name: "Toothpaste", ratio: "[OH⁻] = 3 × 10⁻⁵ mol/dm³" },
+            10.5: { name: "Milk of Magnesia (Mg(OH)₂)", ratio: "[OH⁻] = 3 × 10⁻⁴ mol/dm³" },
+            11.5: { name: "Household Ammonia Solution", ratio: "[OH⁻] = 3 × 10⁻³ mol/dm³" },
+            13: { name: "Household Bleach", ratio: "[OH⁻] = 0.1 mol/dm³" },
+            14: { name: "1.0 M Sodium Hydroxide (NaOH)", ratio: "[OH⁻] = 1.0 mol/dm³" }
+        };
+
+        function updatePH(val) {
+            val = parseFloat(val);
+            document.getElementById('phNumber').innerText = val.toFixed(1);
+
+            // Find closest benchmark
+            let closest = Object.keys(benchmarks).reduce((prev, curr) => 
+                Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
+            );
+
+            document.getElementById('substanceName').innerText = benchmarks[closest].name;
+            document.getElementById('ionRatio').innerText = benchmarks[closest].ratio;
+
+            // Universal Indicator color calculation
+            let displayColor = "#10b981";
+            if (val < 3) displayColor = "#ef4444";
+            else if (val < 6) displayColor = "#f97316";
+            else if (val < 7) displayColor = "#eab308";
+            else if (val < 8) displayColor = "#10b981";
+            else if (val < 10) displayColor = "#06b6d4";
+            else if (val < 12) displayColor = "#3b82f6";
+            else displayColor = "#8b5cf6";
+
+            document.getElementById('phNumber').style.color = displayColor;
+
+            // Update indicators
+            let litmusColor = val < 7 ? "#ef4444" : (val > 7 ? "#3b82f6" : "#a855f7");
+            let litmusLabel = val < 7 ? "Red" : (val > 7 ? "Blue" : "Purple");
+            document.getElementById('litmusDot').style.background = litmusColor;
+            document.getElementById('litmusText').innerText = litmusLabel;
+
+            let phenolColor = val >= 8.2 ? "#ec4899" : "rgba(255,255,255,0.2)";
+            let phenolLabel = val >= 8.2 ? "Vibrant Pink" : "Colorless";
+            document.getElementById('phenolDot').style.background = phenolColor;
+            document.getElementById('phenolText').innerText = phenolLabel;
+
+            let methylColor = val < 3.1 ? "#ef4444" : (val > 4.4 ? "#eab308" : "#f97316");
+            let methylLabel = val < 3.1 ? "Red" : (val > 4.4 ? "Yellow" : "Orange");
+            document.getElementById('methylDot').style.background = methylColor;
+            document.getElementById('methylText').innerText = methylLabel;
+        }
+
+        updatePH(7.0);
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEM with Ayushi | Interactive Science & Learning Dashboard</title>
+    <title>STEM with Ayushi | Interactive Learning & Simulation Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
             --text-main: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --sidebar-width: 360px;
+            --sidebar-width: 370px;
         }
 
         * {
@@ -55,7 +55,7 @@
         }
 
         .sidebar-header {
-            padding: 1.25rem 1.5rem;
+            padding: 1.25rem 1.4rem;
             border-bottom: 1px solid var(--border-subtle);
             background: rgba(18, 24, 38, 0.95);
         }
@@ -68,12 +68,12 @@
             background: rgba(59, 130, 246, 0.15);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
             color: var(--primary-light);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.45rem;
         }
 
         .brand-title {
@@ -89,14 +89,14 @@
         }
 
         .brand-subtitle {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
             margin-top: 0.2rem;
         }
 
         /* Filter Tabs */
         .filter-bar {
-            padding: 0.75rem 1.25rem;
+            padding: 0.65rem 1.2rem;
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             gap: 0.4rem;
@@ -107,9 +107,9 @@
             background: transparent;
             border: 1px solid transparent;
             color: var(--text-muted);
-            padding: 0.35rem 0.75rem;
+            padding: 0.35rem 0.7rem;
             border-radius: 8px;
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
@@ -132,14 +132,14 @@
         .resource-list {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem;
+            padding: 0.85rem;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.65rem;
         }
 
         .resource-list::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
 
         .resource-list::-webkit-scrollbar-thumb {
@@ -151,9 +151,9 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 1rem 1.15rem;
+            padding: 0.9rem 1.05rem;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
         }
@@ -173,7 +173,7 @@
             background: var(--bg-card-hover);
             border-color: rgba(59, 130, 246, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         }
 
         .resource-card.active {
@@ -190,62 +190,65 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.35rem;
         }
 
         .card-tag {
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 0.2rem 0.55rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
             font-family: 'JetBrains Mono', monospace;
         }
 
         .tag-chem { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .tag-env { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .tag-slides { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-        .tag-data { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .tag-ph { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .tag-redox { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .tag-titration { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+        .tag-phet { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .tag-slides { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .tag-data { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
         .tag-portfolio { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
 
         .card-icon-title {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.35rem;
+            gap: 0.55rem;
+            margin-bottom: 0.25rem;
         }
 
         .card-icon {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             flex-shrink: 0;
         }
 
         .card-title {
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-main);
-            line-height: 1.3;
+            line-height: 1.25;
         }
 
         .card-desc {
-            font-size: 0.78rem;
+            font-size: 0.74rem;
             color: var(--text-secondary);
-            line-height: 1.45;
-            margin-bottom: 0.6rem;
+            line-height: 1.4;
+            margin-bottom: 0.45rem;
         }
 
         .card-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             font-family: 'JetBrains Mono', monospace;
         }
 
         /* Sidebar Footer */
         .sidebar-footer {
-            padding: 1rem 1.25rem;
+            padding: 0.9rem 1.2rem;
             border-top: 1px solid var(--border-subtle);
             background: rgba(18, 24, 38, 0.95);
             display: flex;
@@ -268,7 +271,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: white;
         }
 
@@ -279,7 +282,7 @@
         }
 
         .author-handle {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
         }
 
@@ -306,10 +309,10 @@
 
         /* Top Action Bar */
         .viewport-topbar {
-            height: 64px;
+            height: 60px;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 0 1.5rem;
+            padding: 0 1.4rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -319,43 +322,43 @@
         .active-meta {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.9rem;
         }
 
         .active-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
 
         .active-heading h2 {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 800;
             color: var(--text-main);
             letter-spacing: -0.2px;
         }
 
         .active-heading p {
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             color: var(--text-muted);
         }
 
         .viewport-controls {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.55rem;
         }
 
         .action-btn {
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             color: var(--text-secondary);
-            padding: 0.45rem 0.9rem;
+            padding: 0.42rem 0.85rem;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
+            gap: 0.4rem;
             text-decoration: none;
             transition: all 0.2s;
         }
@@ -381,7 +384,7 @@
         .frame-wrapper {
             flex: 1;
             width: 100%;
-            height: calc(100% - 64px);
+            height: calc(100% - 60px);
             position: relative;
             background: #000;
         }
@@ -394,7 +397,7 @@
             background: var(--bg-dark);
         }
 
-        /* Fallback / Special View for Downloadable Models (e.g. Excel) */
+        /* Fallback for Excel Data Lab */
         .special-view {
             display: none;
             width: 100%;
@@ -411,16 +414,16 @@
         }
 
         .excel-hero-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3.8rem;
+            margin-bottom: 0.75rem;
             display: inline-block;
             filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4));
         }
 
         .special-title {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.65rem;
             background: linear-gradient(135deg, #34d399, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -428,7 +431,7 @@
 
         .special-desc {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 2rem;
             max-width: 680px;
@@ -466,13 +469,12 @@
             line-height: 1.45;
         }
 
-        /* Mobile overlay */
         .menu-toggle {
             display: none;
             background: transparent;
             border: none;
             color: var(--text-main);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             cursor: pointer;
         }
 
@@ -501,102 +503,153 @@
     <!-- ───── Sidebar ───── -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span class="brand-badge">⚡ Interactive Learning Hub</span>
+            <span class="brand-badge">⚡ Focused Learning Hub</span>
             <h1 class="brand-title">STEM with Ayushi</h1>
-            <p class="brand-subtitle">Simulations, Virtual Labs &amp; Master Presentations</p>
+            <p class="brand-subtitle">Individual Interactive Science Visualizations</p>
         </div>
 
         <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterItems('all', this)">All (5)</button>
-            <button class="filter-btn" onclick="filterItems('sims', this)">Simulations (2)</button>
+            <button class="filter-btn active" onclick="filterItems('all', this)">All (8)</button>
+            <button class="filter-btn" onclick="filterItems('chemistry', this)">Chemistry (4)</button>
             <button class="filter-btn" onclick="filterItems('teaching', this)">Teaching (2)</button>
-            <button class="filter-btn" onclick="filterItems('portfolio', this)">Portfolio (1)</button>
+            <button class="filter-btn" onclick="filterItems('more', this)">More (2)</button>
         </div>
 
         <div class="resource-list" id="resource-list">
 
-            <!-- Item 1: Interactive Chemistry Suite -->
-            <div class="resource-card active" data-category="sims" onclick="selectResource(0)">
+            <!-- 1. Particle Neutralization Canvas -->
+            <div class="resource-card active" data-category="chemistry" onclick="selectResource(0)">
                 <div class="card-meta">
-                    <span class="card-tag tag-chem">Chemistry</span>
-                    <span style="font-size:0.7rem; color:var(--accent-cyan); font-weight:700;">HTML5 Canvas</span>
+                    <span class="card-tag tag-chem">Particle Kinetics</span>
+                    <span style="font-size:0.68rem; color:var(--accent-cyan); font-weight:700;">2D Canvas</span>
                 </div>
                 <div class="card-icon-title">
                     <span class="card-icon">⚛️</span>
-                    <h3 class="card-title">Chemical Models &amp; Energy Suite</h3>
+                    <h3 class="card-title">Particle Collision Neutralization</h3>
                 </div>
-                <p class="card-desc">Particle collision neutralization, pH 0–14 Universal Indicator slider, 2e⁻ valence leap &amp; PhET simulator.</p>
+                <p class="card-desc">Sub-microscopic collision dynamics: H⁺ &amp; OH⁻ synthesis of H₂O and exothermic energy release.</p>
                 <div class="card-footer">
-                    <span>MYP 5 Integrated Sci</span>
-                    <span>4 Interactive Modules</span>
+                    <span>OIS 10.ABC-DS.2</span>
+                    <span>Focused Canvas</span>
                 </div>
             </div>
 
-            <!-- Item 2: Water Titration Virtual Lab -->
-            <div class="resource-card" data-category="sims" onclick="selectResource(1)">
+            <!-- 2. Dynamic pH Spectrum -->
+            <div class="resource-card" data-category="chemistry" onclick="selectResource(1)">
                 <div class="card-meta">
-                    <span class="card-tag tag-env">Environmental Chem</span>
-                    <span style="font-size:0.7rem; color:var(--accent-emerald); font-weight:700;">Criterion B &amp; C</span>
+                    <span class="card-tag tag-ph">Acids &amp; Bases</span>
+                    <span style="font-size:0.68rem; color:var(--accent-emerald); font-weight:700;">pH 0–14 Slider</span>
+                </div>
+                <div class="card-icon-title">
+                    <span class="card-icon">🎨</span>
+                    <h3 class="card-title">Universal Indicator pH Spectrum</h3>
+                </div>
+                <p class="card-desc">Interactive 0–14 gradient slider, real-time litmus/phenol/methyl color changes &amp; 10× ion rules.</p>
+                <div class="card-footer">
+                    <span>OIS 10.ABC-DS.4</span>
+                    <span>Dynamic Gradient</span>
+                </div>
+            </div>
+
+            <!-- 3. Redox Electron Leap -->
+            <div class="resource-card" data-category="chemistry" onclick="selectResource(2)">
+                <div class="card-meta">
+                    <span class="card-tag tag-redox">Redox Reactions</span>
+                    <span style="font-size:0.68rem; color:var(--accent-purple); font-weight:700;">Orbital Jump</span>
+                </div>
+                <div class="card-icon-title">
+                    <span class="card-icon">⚡</span>
+                    <h3 class="card-title">Valence Electron Transfer Leap</h3>
+                </div>
+                <p class="card-desc">Single-displacement orbital simulation: Zn(s) oxidation and Cu²⁺ reduction half-equations.</p>
+                <div class="card-footer">
+                    <span>OIS 10.ABC-DS.1</span>
+                    <span>2e⁻ Animation</span>
+                </div>
+            </div>
+
+            <!-- 4. Water Titration Virtual Bench -->
+            <div class="resource-card" data-category="chemistry" onclick="selectResource(3)">
+                <div class="card-meta">
+                    <span class="card-tag tag-titration">Analytical Chem</span>
+                    <span style="font-size:0.68rem; color:var(--accent-cyan); font-weight:700;">Criterion B &amp; C</span>
                 </div>
                 <div class="card-icon-title">
                     <span class="card-icon">🧪</span>
                     <h3 class="card-title">Environmental Water Titration Lab</h3>
                 </div>
-                <p class="card-desc">Dropwise burette delivery, stirring vortex, live sigmoidal pH curve, indicator endpoints &amp; diagnostics.</p>
+                <p class="card-desc">Virtual burette stopcock delivery, magnetic stirrer vortex, live sigmoidal pH curve &amp; mole diagnostics.</p>
                 <div class="card-footer">
-                    <span>Analytical Titration</span>
-                    <span>Full Virtual Bench</span>
+                    <span>Quantitative Analysis</span>
+                    <span>Full Lab Bench</span>
                 </div>
             </div>
 
-            <!-- Item 3: Master Teaching Presentation Deck -->
-            <div class="resource-card" data-category="teaching" onclick="selectResource(2)">
+            <!-- 5. PhET Acid-Base Virtual Solutions -->
+            <div class="resource-card" data-category="chemistry" onclick="selectResource(4)">
                 <div class="card-meta">
-                    <span class="card-tag tag-slides">Google Slides / PPTX</span>
-                    <span style="font-size:0.7rem; color:var(--accent-amber); font-weight:700;">Master Deck</span>
+                    <span class="card-tag tag-phet">PhET Interactive</span>
+                    <span style="font-size:0.68rem; color:var(--accent-amber); font-weight:700;">Virtual Simulator</span>
+                </div>
+                <div class="card-icon-title">
+                    <span class="card-icon">🔬</span>
+                    <h3 class="card-title">PhET Acid-Base Solutions</h3>
+                </div>
+                <p class="card-desc">Direct embedded PhET laboratory: conductivity probes, equilibrium concentrations and acid strength.</p>
+                <div class="card-footer">
+                    <span>University of Colorado</span>
+                    <span>Interactive Sim</span>
+                </div>
+            </div>
+
+            <!-- 6. Master Teaching Presentation -->
+            <div class="resource-card" data-category="teaching" onclick="selectResource(5)">
+                <div class="card-meta">
+                    <span class="card-tag tag-slides">Teaching Deck</span>
+                    <span style="font-size:0.68rem; color:var(--accent-rose); font-weight:700;">24 Master Slides</span>
                 </div>
                 <div class="card-icon-title">
                     <span class="card-icon">📊</span>
-                    <h3 class="card-title">MYP 5 Chemical Models (24 Slides)</h3>
+                    <h3 class="card-title">MYP 5 Chemical Models Deck</h3>
                 </div>
-                <p class="card-desc">Full 24-slide master presentation with Harvard Project Zero routines, hinge questions &amp; teacher notes.</p>
+                <p class="card-desc">Oberoi International School standard: Harvard Project Zero VTRs, diagnostic hinge questions &amp; notes.</p>
                 <div class="card-footer">
-                    <span>Sub-Unit 1 Mastery</span>
-                    <span>24 Slides + Notes</span>
+                    <span>Google Slides / PPTX</span>
+                    <span>Speaker Notes</span>
                 </div>
             </div>
 
-            <!-- Item 4: Interactive Excel Science Lab -->
-            <div class="resource-card" data-category="teaching" onclick="selectResource(3)">
+            <!-- 7. Interactive Excel Science Lab -->
+            <div class="resource-card" data-category="teaching" onclick="selectResource(6)">
                 <div class="card-meta">
                     <span class="card-tag tag-data">Data Modeling</span>
-                    <span style="font-size:0.7rem; color:var(--accent-purple); font-weight:700;">Dynamic Excel</span>
+                    <span style="font-size:0.68rem; color:var(--accent-purple); font-weight:700;">Dynamic Excel</span>
                 </div>
                 <div class="card-icon-title">
                     <span class="card-icon">📈</span>
-                    <h3 class="card-title">Interactive Science Data Lab</h3>
+                    <h3 class="card-title">Kinematics &amp; Genetics Data Models</h3>
                 </div>
-                <p class="card-desc">Dynamic multi-sheet workbook: Projectile motion trajectory, Punnett square genetics &amp; logistic growth.</p>
+                <p class="card-desc">Interactive projectile trajectories, Mendelian Punnett squares and logistic ecology carrying capacity.</p>
                 <div class="card-footer">
                     <span>Physics &amp; Biology</span>
                     <span>Dynamic Models</span>
                 </div>
             </div>
 
-            <!-- Item 5: Educator & Researcher Portfolio -->
-            <div class="resource-card" data-category="portfolio" onclick="selectResource(4)">
+            <!-- 8. Educator & Researcher Portfolio -->
+            <div class="resource-card" data-category="more" onclick="selectResource(7)">
                 <div class="card-meta">
                     <span class="card-tag tag-portfolio">Personal Portfolio</span>
-                    <span style="font-size:0.7rem; color:var(--accent-rose); font-weight:700;">Ayushi Singh</span>
+                    <span style="font-size:0.68rem; color:var(--accent-rose); font-weight:700;">Ayushi Singh</span>
                 </div>
                 <div class="card-icon-title">
                     <span class="card-icon">👩‍🏫</span>
                     <h3 class="card-title">Educator &amp; Researcher Portfolio</h3>
                 </div>
-                <p class="card-desc">Senior secondary &amp; IB educator profile, Rank 1 DU, DRDO metamaterials research &amp; pedagogy matrix.</p>
+                <p class="card-desc">Academic background, DU Rank 1, DRDO metamaterials research, ZnO thesis and international teaching.</p>
                 <div class="card-footer">
                     <span>stem-with-ayushi</span>
-                    <span>Full Showcase</span>
+                    <span>CV &amp; Bio</span>
                 </div>
             </div>
 
@@ -624,27 +677,26 @@
                 <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
                 <span class="active-icon" id="view-icon">⚛️</span>
                 <div class="active-heading">
-                    <h2 id="view-title">Chemical Models &amp; Energy Suite</h2>
-                    <p id="view-desc">IB MYP 5 Integrated Sciences · Collision Physics &amp; Dynamic pH</p>
+                    <h2 id="view-title">Particle Collision Neutralization</h2>
+                    <p id="view-desc">Sub-microscopic collision dynamics: H⁺ &amp; OH⁻ synthesis of H₂O and exothermic energy release.</p>
                 </div>
             </div>
 
             <div class="viewport-controls">
                 <button class="action-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
                     <span>Fullscreen</span>
                 </button>
-                <a id="btn-external" href="interactive_chemistry_lab.html" target="_blank" class="action-btn btn-accent" title="Open in new window">
+                <a id="btn-external" href="sim_neutralization.html" target="_blank" class="action-btn btn-accent" title="Open in new window">
                     <span>Open in Tab</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"/></svg>
                 </a>
             </div>
         </header>
 
         <!-- Viewport Container -->
         <div class="frame-wrapper" id="frame-wrapper">
-            <!-- Standard iframe for HTML and Google Slides -->
-            <iframe id="viewer-frame" src="interactive_chemistry_lab.html" allowfullscreen></iframe>
+            <iframe id="viewer-frame" src="sim_neutralization.html" allowfullscreen></iframe>
 
             <!-- Special View for Excel / Data Models -->
             <div class="special-view" id="excel-view">
@@ -671,7 +723,7 @@
                     </div>
 
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="Interactive_Science_Lab.xlsx" download class="action-btn btn-accent" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+                        <a id="btn-download-excel" href="Interactive_Science_Lab.xlsx" download class="action-btn btn-accent" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
                             📥 Download Interactive_Science_Lab.xlsx
                         </a>
                         <a href="https://docs.google.com/spreadsheets" target="_blank" class="action-btn" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
@@ -684,55 +736,86 @@
     </main>
 
     <script>
+        const isSubdir = window.location.pathname.includes('/learn');
+        const base = isSubdir ? '../' : './';
+
         const resources = [
             {
-                title: "Chemical Models & Energy Suite",
-                subtitle: "IB MYP 5 Integrated Sciences · Collision Physics & Dynamic pH",
+                title: "Particle Collision Neutralization",
+                subtitle: "Sub-microscopic collision dynamics: H⁺ & OH⁻ synthesis of H₂O and exothermic energy release.",
                 icon: "⚛️",
                 type: "frame",
-                url: "interactive_chemistry_lab.html"
+                file: "sim_neutralization.html"
             },
             {
-                title: "Environmental Water Titration Virtual Lab",
-                subtitle: "Criterion B & C Inquiring & Processing · Dropwise Burette Simulation",
+                title: "Universal Indicator pH Spectrum",
+                subtitle: "Interactive 0–14 gradient slider, real-time litmus/phenol/methyl color changes & 10× ion rules.",
+                icon: "🎨",
+                type: "frame",
+                file: "sim_ph_spectrum.html"
+            },
+            {
+                title: "Valence Electron Transfer Leap",
+                subtitle: "Single-displacement orbital simulation: Zn(s) oxidation and Cu²⁺ reduction half-equations.",
+                icon: "⚡",
+                type: "frame",
+                file: "sim_electron_leap.html"
+            },
+            {
+                title: "Environmental Water Titration Lab",
+                subtitle: "Virtual burette stopcock delivery, magnetic stirrer vortex, live sigmoidal pH curve & mole diagnostics.",
                 icon: "🧪",
                 type: "frame",
-                url: "water_titration_lab.html"
+                file: "water_titration_lab.html"
             },
             {
-                title: "MYP 5 Chemical Models Master Deck",
-                subtitle: "Oberoi International School Standards · 24 Master Slides with Harvard PZ Routines",
+                title: "PhET Acid-Base Solutions Laboratory",
+                subtitle: "Direct interactive simulator: conductivity light bulbs, equilibrium concentrations & acid strength.",
+                icon: "🔬",
+                type: "frame",
+                file: "https://phet.colorado.edu/sims/html/acid-base-solutions/latest/acid-base-solutions_en.html",
+                isAbsolute: true
+            },
+            {
+                title: "MYP 5 Chemical Models Deck (24 Slides)",
+                subtitle: "Oberoi International School standard: Harvard Project Zero VTRs, diagnostic hinge questions & notes.",
                 icon: "📊",
                 type: "frame",
-                url: "https://docs.google.com/presentation/d/1yEaFPbccvZZr9Tuxv4aGmWR5OEvPiux28-Ov8nmsb9c/embed?start=false&loop=false&delayms=3000"
+                file: "https://docs.google.com/presentation/d/1yEaFPbccvZZr9Tuxv4aGmWR5OEvPiux28-Ov8nmsb9c/embed?start=false&loop=false&delayms=3000",
+                isAbsolute: true
             },
             {
-                title: "Interactive Science Data Lab (Excel)",
-                subtitle: "Projectile Motion, Mendelian Punnett Squares & Logistic Growth",
+                title: "Kinematics & Genetics Data Models (Excel)",
+                subtitle: "Interactive projectile trajectories, Mendelian Punnett squares and logistic ecology carrying capacity.",
                 icon: "📈",
                 type: "excel",
-                url: "Interactive_Science_Lab.xlsx"
+                file: "Interactive_Science_Lab.xlsx"
             },
             {
                 title: "Educator & Researcher Portfolio",
-                subtitle: "Ayushi Singh · Physics Teacher & Condensed Matter Researcher",
+                subtitle: "Ayushi Singh · Physics Teacher & Condensed Matter Researcher Profile",
                 icon: "👩‍🏫",
                 type: "frame",
-                url: "index.html"
+                file: "index.html"
             }
         ];
 
         let currentIndex = 0;
 
+        function getFullUrl(res) {
+            return res.isAbsolute ? res.file : (base + res.file);
+        }
+
         function selectResource(index) {
             currentIndex = index;
             const res = resources[index];
+            const targetUrl = getFullUrl(res);
 
             // Update Header Meta
             document.getElementById('view-icon').innerText = res.icon;
             document.getElementById('view-title').innerText = res.title;
             document.getElementById('view-desc').innerText = res.subtitle;
-            document.getElementById('btn-external').href = res.url;
+            document.getElementById('btn-external').href = targetUrl;
 
             // Update Active Card Styling
             const cards = document.querySelectorAll('.resource-card');
@@ -751,10 +834,11 @@
             if (res.type === 'frame') {
                 excelView.style.display = 'none';
                 iframe.style.display = 'block';
-                iframe.src = res.url;
+                iframe.src = targetUrl;
             } else if (res.type === 'excel') {
                 iframe.style.display = 'none';
                 excelView.style.display = 'block';
+                document.getElementById('btn-download-excel').href = targetUrl;
             }
 
             // Close sidebar on mobile
@@ -764,11 +848,9 @@
         }
 
         function filterItems(category, btn) {
-            // Update filter buttons
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            // Filter cards
             const cards = document.querySelectorAll('.resource-card');
             cards.forEach(card => {
                 if (category === 'all' || card.getAttribute('data-category') === category) {
@@ -793,6 +875,9 @@
                 document.exitFullscreen();
             }
         }
+
+        // Initialize with resource 0
+        selectResource(0);
     </script>
 </body>
 </html>
