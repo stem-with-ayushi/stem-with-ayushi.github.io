@@ -1,0 +1,8 @@
+credentials.json
+token.json
+*.pyc
+__pycache__/
+.DS_Store
+~$*
+test_link.pptx
+test_trans.pptx

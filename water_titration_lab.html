@@ -1,0 +1,2968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Water Titration Virtual Laboratory | IB MYP Chemistry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0e17;
+            --bg-card: #131b2e;
+            --bg-card-hover: #1a253c;
+            --border-subtle: #23314e;
+            --border-focus: #3b82f6;
+            --primary: #2563eb;
+            --primary-light: #60a5fa;
+            --primary-glow: rgba(37, 99, 235, 0.35);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.25);
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --fuchsia: #d946ef;
+            --cyan: #06b6d4;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-subtle);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* Top Navigation Header */
+        header {
+            background: rgba(19, 27, 46, 0.85);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.9rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .brand-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(10, 14, 23, 0.65);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            gap: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text-primary);
+            border-color: var(--primary-light);
+        }
+
+        /* Main Workspace Container */
+        main {
+            max-width: 1540px;
+            margin: 0 auto;
+            padding: 1.5rem 1.8rem 3rem;
+            width: 100%;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Context Banner */
+        .context-banner {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(6, 182, 212, 0.08));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.4rem;
+            margin-bottom: 1.4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .banner-icon {
+            font-size: 1.8rem;
+            background: rgba(37, 99, 235, 0.2);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+        }
+
+        .banner-text h2 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .banner-text p {
+            font-size: 0.8rem;
+            color: #93c5fd;
+        }
+
+        .pill-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pill-cyan { background: rgba(6, 182, 212, 0.18); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.4); }
+        .pill-amber { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .pill-emerald { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+        /* Titration Grid Layout */
+        .titration-grid {
+            display: grid;
+            grid-template-columns: 330px 1fr 390px;
+            gap: 1.4rem;
+            align-items: stretch;
+        }
+
+        @media (max-width: 1300px) {
+            .titration-grid {
+                grid-template-columns: 310px 1fr;
+            }
+            .sidebar-col {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .titration-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-col {
+                grid-column: span 1;
+            }
+        }
+
+        /* Generic Card Styling */
+        .lab-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-card);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .card-header-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-header-line h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Controls Column */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .custom-select, .custom-input {
+            width: 100%;
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            padding: 0.6rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .custom-select:focus, .custom-input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 2px var(--primary-glow);
+        }
+
+        .sample-preview-box {
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            font-size: 0.8rem;
+        }
+
+        .sample-preview-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sample-preview-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .sample-preview-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            border: none;
+            color: white;
+            padding: 0.65rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .btn-action:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.35);
+        }
+
+        .btn-emerald {
+            background: linear-gradient(135deg, #059669, #047857);
+            box-shadow: 0 4px 12px var(--emerald-glow);
+        }
+
+        /* Flow Control Pad */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .btn-flow {
+            padding: 0.55rem 0.7rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            background: rgba(10, 14, 23, 0.8);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            text-align: center;
+        }
+
+        .btn-flow:hover:not(:disabled) {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: var(--primary);
+            color: #93c5fd;
+        }
+
+        .btn-flow.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* CENTER STAGE: SIMULATOR BENCH */
+        .stage-card {
+            background: radial-gradient(circle at 50% 20%, #162038 0%, #0c1220 100%);
+            border: 1px solid var(--border-subtle);
+            min-height: 640px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-bench {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 1rem 0.5rem;
+        }
+
+        /* SVG Apparatus Canvas */
+        #apparatusSvg {
+            width: 100%;
+            height: 520px;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Stage Overlay Hud */
+        .hud-top-bar {
+            position: absolute;
+            top: 1rem;
+            left: 1.2rem;
+            right: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hud-pill {
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-subtle);
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            pointer-events: auto;
+        }
+
+        .hud-live-tag {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulseDot 1.5s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Meniscus Loupe (Magnifier Overlay) */
+        .loupe-overlay {
+            position: absolute;
+            top: 60px;
+            right: 1.2rem;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #080d1a;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 0 20px var(--primary-glow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            transition: all 0.3s;
+        }
+
+        .loupe-title {
+            position: absolute;
+            top: 6px;
+            font-size: 0.64rem;
+            font-weight: 800;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(10, 14, 23, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        #loupeCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .loupe-reading {
+            position: absolute;
+            bottom: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #38bdf8;
+            background: rgba(10, 14, 23, 0.9);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        /* Digital pH Probe LCD Display */
+        .meter-lcd-dock {
+            position: absolute;
+            bottom: 1.2rem;
+            left: 1.2rem;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            border-radius: var(--radius-md);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+
+        .lcd-screen {
+            background: #04100c;
+            border: 1.5px solid #065f46;
+            border-radius: 6px;
+            padding: 0.4rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: right;
+        }
+
+        .lcd-val {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #34d399;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+            line-height: 1;
+        }
+
+        .lcd-unit {
+            font-size: 0.65rem;
+            color: #059669;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .meter-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .meter-details span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .meter-indicator-state {
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Stage Bottom Quick Bar */
+        .stage-quickbar {
+            background: rgba(10, 14, 23, 0.75);
+            border-top: 1px solid var(--border-subtle);
+            padding: 0.75rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stirrer-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .stirrer-knob-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .stirrer-knob-btn.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            border-color: #10b981;
+        }
+
+        /* RIGHT COLUMN: ANALYTICS & CURVE */
+        .sidebar-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 250px;
+            background: #080d1a;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #titrationChartCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .reading-summary-card {
+            background: rgba(10, 14, 23, 0.6);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 0.85rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem;
+        }
+
+        .metric-box {
+            background: rgba(19, 27, 46, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            padding: 0.6rem;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        /* LAB NOTEBOOK TAB & TABLES */
+        .notebook-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .lab-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .lab-table th {
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+            white-space: nowrap;
+        }
+
+        .lab-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.84rem;
+        }
+
+        .lab-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+
+        .lab-table input.table-input {
+            width: 90px;
+            background: rgba(10, 14, 23, 0.9);
+            border: 1px solid var(--border-subtle);
+            color: #38bdf8;
+            padding: 0.4rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: right;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .lab-table input.table-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 6px var(--primary-glow);
+        }
+
+        .badge-status {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: inline-block;
+        }
+
+        .badge-concordant { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-divergent { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-rough { background: rgba(148, 163, 184, 0.2); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.4); }
+
+        /* Calculation Step Cards */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .step-box {
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            position: relative;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #60a5fa;
+            background: rgba(37, 99, 235, 0.15);
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .step-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .step-formula {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 3px solid #3b82f6;
+            padding: 0.5rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #93c5fd;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .step-calc-body {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .calc-result-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Environmental Impact Dashboard */
+        .eco-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 950px) {
+            .eco-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .eco-stat-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .eco-bar-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Interactive Quiz Card */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .quiz-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .quiz-question {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .quiz-num {
+            background: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-opt-btn {
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.7rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-opt-btn:hover:not(.locked) {
+            background: rgba(37, 99, 235, 0.12);
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .quiz-opt-btn.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+        }
+
+        .quiz-opt-btn.incorrect {
+            background: rgba(244, 63, 94, 0.2) !important;
+            border-color: #f43f5e !important;
+            color: #fb7185 !important;
+        }
+
+        .quiz-feedback {
+            display: none;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        /* Printable Report Modal / View */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            header, .header-actions, .context-banner, .btn-action, .flow-grid, .stage-quickbar, .nav-tabs {
+                display: none !important;
+            }
+            .view-section {
+                display: block !important;
+            }
+            .lab-card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                background: #fff !important;
+                color: #000 !important;
+                page-break-inside: avoid;
+            }
+            .lab-table th, .lab-table td {
+                color: #000 !important;
+                background: #fff !important;
+                border-color: #ccc !important;
+            }
+        }
+
+        /* Toast Notifications */
+        .toast-notify {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #3b82f6;
+            color: #ffffff;
+            padding: 0.8rem 1.4rem;
+            border-radius: var(--radius-md);
+            font-size: 0.84rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 9999;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .toast-notify.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Bar -->
+    <header>
+        <div class="brand-group">
+            <div class="brand-badge">🧪</div>
+            <div class="brand-text">
+                <h1>AquaTitrate · Environmental Water Lab</h1>
+                <p>IB MYP Criterion B &amp; C · Quantitative Acid-Base Neutralization Simulation</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchSection('section-titration')">
+                    🔬 Titration Bench
+                </button>
+                <button class="tab-btn" onclick="switchSection('section-notebook')">
+                    📋 Lab Notebook &amp; Calcs
+                </button>
+                <button class="tab-btn" onclick="switchSection('section-ecological')">
+                    🌱 Environmental Analysis
+                </button>
+                <button class="tab-btn" onclick="switchSection('section-quiz')">
+                    📝 Inquiry Quiz
+                </button>
+            </div>
+
+            <button class="btn-icon" id="soundToggleBtn" onclick="toggleAudio()" title="Toggle Laboratory Sound Effects">
+                🔊
+            </button>
+            <button class="btn-icon" onclick="printLabReport()" title="Print / Export Complete Lab Report">
+                🖨️
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main>
+        <!-- Real-World Environmental Context Banner -->
+        <div class="context-banner">
+            <div class="banner-content">
+                <div class="banner-icon">🏞️</div>
+                <div class="banner-text">
+                    <h2>Real-World Inquiry: Anthropogenic Acid Deposition in Watersheds</h2>
+                    <p>Natural water bodies absorb sulfur dioxide (SO₂) and nitrogen oxides (NOₓ) from industrial emissions, forming acid rain (H₂SO₄ / HNO₃) and leaching heavy minerals. Students must titrate environmental aliquots with standardized NaOH to quantify titratable acidity.</p>
+                </div>
+            </div>
+            <div>
+                <span class="pill-badge pill-cyan">Standardized Titrant: 0.100 M NaOH</span>
+                <span class="pill-badge pill-emerald">Burette Tolerance: ±0.05 mL</span>
+            </div>
+        </div>
+
+        <!-- ================= SECTION 1: TITRATION BENCH ================= -->
+        <div id="section-titration" class="view-section active">
+            <div class="titration-grid">
+
+                <!-- Left Column: Experimental Setup & Titration Controls -->
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>⚙️ Sample &amp; Setup</h3>
+                            <div class="card-subtitle">Configure water aliquot and indicator</div>
+                        </div>
+                        <span class="pill-badge pill-amber" id="trialIndicatorBadge">Trial 1</span>
+                    </div>
+
+                    <!-- Water Sample Selector -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span>Target Environmental Water</span>
+                            <span style="color: #60a5fa; cursor: pointer;" onclick="loadRandomSample()">🎲 Random</span>
+                        </label>
+                        <select id="waterSampleSelect" class="custom-select" onchange="onSampleChange()">
+                            <option value="quarry">Quarry / Acid Mine Leachate (High Acidity)</option>
+                            <option value="river" selected>Industrial River Downstream (Moderate Acidity)</option>
+                            <option value="agri">Agricultural Runoff Canal (Mild-Moderate)</option>
+                            <option value="pond">Woodland Peat Pond (Mild Organic Acids)</option>
+                            <option value="alpine">Pristine Alpine Stream (Clean Control)</option>
+                        </select>
+                    </div>
+
+                    <!-- Sample Characteristics Box -->
+                    <div class="sample-preview-box" id="sampleDataBox">
+                        <div class="sample-preview-row">
+                            <span class="sample-preview-label">Sampling Location:</span>
+                            <span class="sample-preview-val" id="lblLocation">Industrial River, Sector 4</span>
+                        </div>
+                        <div class="sample-preview-row">
+                            <span class="sample-preview-label">Initial pH (Unbuffered):</span>
+                            <span class="sample-preview-val" id="lblInitialPh">~ 4.25</span>
+                        </div>
+                        <div class="sample-preview-row">
+                            <span class="sample-preview-label">Dominant Acid Species:</span>
+                            <span class="sample-preview-val" style="color:#e2e8f0;" id="lblAcidSpecies">H₂SO₄ / HNO₃ (Acid Rain)</span>
+                        </div>
+                        <div class="sample-preview-row">
+                            <span class="sample-preview-label">Estimated Neutralization Range:</span>
+                            <span class="sample-preview-val" style="color:#f59e0b;" id="lblEstimatedVol">14.0 - 15.5 mL</span>
+                        </div>
+                    </div>
+
+                    <!-- Aliquot & Indicator Selection -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+                        <div class="form-group">
+                            <label class="form-label">Sample Volume</label>
+                            <select id="aliquotVolSelect" class="custom-select" onchange="resetTitration()">
+                                <option value="25.0" selected>25.00 mL</option>
+                                <option value="20.0">20.00 mL</option>
+                                <option value="10.0">10.00 mL</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Chemical Indicator</label>
+                            <select id="indicatorSelect" class="custom-select" onchange="onIndicatorChange()">
+                                <option value="phenolphthalein" selected>Phenolphthalein</option>
+                                <option value="bromothymol">Bromothymol Blue</option>
+                                <option value="methylOrange">Methyl Orange</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Burette Controls Section -->
+                    <div class="card-header-line" style="margin-top: 0.2rem; padding-top: 0.5rem;">
+                        <div>
+                            <h3>🚰 Burette Dispenser (NaOH)</h3>
+                            <div class="card-subtitle">Class-A 50.00 mL Stopcock Control</div>
+                        </div>
+                    </div>
+
+                    <!-- Flow Control Buttons -->
+                    <div class="flow-grid">
+                        <button class="btn-flow" id="btnDropwise" onclick="toggleDropwise()">
+                            💧 Dropwise (0.2 mL/s)
+                        </button>
+                        <button class="btn-flow" id="btnStream" onclick="toggleStream()">
+                            🌊 Stream (1.0 mL/s)
+                        </button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem;">
+                        <button class="btn-flow" onclick="addSingleDrop()" title="Add precisely 1 drop (0.05 mL)">
+                            +0.05 mL
+                        </button>
+                        <button class="btn-flow" onclick="addIncrementalVolume(0.10)">
+                            +0.1 mL
+                        </button>
+                        <button class="btn-flow" onclick="addIncrementalVolume(0.50)">
+                            +0.5 mL
+                        </button>
+                        <button class="btn-flow" onclick="addIncrementalVolume(1.00)">
+                            +1.0 mL
+                        </button>
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem;">
+                        <button class="btn-action btn-danger" style="flex: 1;" onclick="stopAllDispense()">
+                            🛑 Close Stopcock
+                        </button>
+                        <button class="btn-action btn-secondary" onclick="refillBurette()" title="Refill Burette to 0.00 mL">
+                            🔄 Refill
+                        </button>
+                    </div>
+
+                    <!-- Log to Notebook Button -->
+                    <div style="margin-top: 0.3rem;">
+                        <button class="btn-action btn-emerald" style="width: 100%;" onclick="logTrialToNotebook()">
+                            📥 Record Trial in Notebook
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Center Column: Animated SVG Titration Bench Simulator -->
+                <div class="stage-card">
+                    <!-- Top HUD Indicators -->
+                    <div class="hud-top-bar">
+                        <div class="hud-pill">
+                            <span class="hud-live-tag"></span>
+                            <span>BURETTE: 0.100 M NaOH STANDARDIZED</span>
+                        </div>
+                        <div class="hud-pill" style="border-color: rgba(96, 165, 250, 0.4);">
+                            <span>STOPCOCK: </span>
+                            <span id="hudStopcockState" style="color: #ef4444; font-weight: 800; font-family: 'JetBrains Mono', monospace;">CLOSED</span>
+                        </div>
+                    </div>
+
+                    <!-- Meniscus Inspection Loupe (Magnifier) -->
+                    <div class="loupe-overlay" title="4X Meniscus Inspection Loupe. Read from bottom of the meniscus!">
+                        <span class="loupe-title">Meniscus View (4x)</span>
+                        <canvas id="loupeCanvas" width="160" height="160"></canvas>
+                        <span class="loupe-reading" id="loupeReadoutText">0.00 mL</span>
+                    </div>
+
+                    <!-- Digital pH LCD Display & Solution Indicator -->
+                    <div class="meter-lcd-dock">
+                        <div class="lcd-screen">
+                            <div class="lcd-val" id="lcdPhValue">4.25</div>
+                            <div class="lcd-unit">DIGITAL pH PROBE</div>
+                        </div>
+                        <div class="meter-details">
+                            <span id="lcdTempReading">Temp: 25.0 °C</span>
+                            <div class="meter-indicator-state">
+                                <span>Color:</span>
+                                <span id="indicatorColorName" style="color: #94a3b8; font-weight: 700;">Colorless</span>
+                            </div>
+                            <span id="indicatorEndpointHint" style="font-size: 0.68rem; color: #fbbf24;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive SVG Laboratory Apparatus -->
+                    <div class="stage-bench">
+                        <svg id="apparatusSvg" viewBox="0 0 450 560">
+                            <defs>
+                                <!-- Retort Stand Gradient -->
+                                <linearGradient id="metalStandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#334155" />
+                                    <stop offset="50%" stop-color="#64748b" />
+                                    <stop offset="100%" stop-color="#1e293b" />
+                                </linearGradient>
+
+                                <!-- Glass Burette Gradient -->
+                                <linearGradient id="glassReflection" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(255,255,255,0.4)" />
+                                    <stop offset="25%" stop-color="rgba(255,255,255,0.08)" />
+                                    <stop offset="70%" stop-color="rgba(255,255,255,0.02)" />
+                                    <stop offset="100%" stop-color="rgba(255,255,255,0.25)" />
+                                </linearGradient>
+
+                                <!-- Liquid Titrant in Burette Gradient -->
+                                <linearGradient id="titrantGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="rgba(96, 165, 250, 0.45)" />
+                                    <stop offset="50%" stop-color="rgba(147, 197, 253, 0.35)" />
+                                    <stop offset="100%" stop-color="rgba(59, 130, 246, 0.5)" />
+                                </linearGradient>
+
+                                <!-- Hotplate / Stirrer Gradient -->
+                                <linearGradient id="stirrerPlateGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#f8fafc" />
+                                    <stop offset="15%" stop-color="#cbd5e1" />
+                                    <stop offset="100%" stop-color="#94a3b8" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- ================= RETORT STAND & CLAMP ================= -->
+                            <!-- Heavy Cast Iron Base -->
+                            <rect x="70" y="525" width="220" height="18" rx="4" fill="url(#metalStandGrad)" stroke="#0f172a" stroke-width="1.5" />
+                            <!-- Vertical Steel Rod -->
+                            <rect x="110" y="20" width="12" height="508" fill="url(#metalStandGrad)" stroke="#1e293b" />
+                            <!-- Clamp Bosshead (Top) -->
+                            <rect x="105" y="75" width="22" height="26" rx="3" fill="#1e293b" stroke="#475569" />
+                            <path d="M 125 88 L 195 88" stroke="#64748b" stroke-width="7" stroke-linecap="round" />
+                            <circle cx="195" cy="88" r="6" fill="#475569" />
+                            <!-- Clamp Bosshead (Bottom) -->
+                            <rect x="105" y="280" width="22" height="26" rx="3" fill="#1e293b" stroke="#475569" />
+                            <path d="M 125 293 L 195 293" stroke="#64748b" stroke-width="7" stroke-linecap="round" />
+
+                            <!-- Clamp Prongs holding Burette -->
+                            <path d="M 195 88 C 205 78, 225 78, 235 88" fill="none" stroke="#94a3b8" stroke-width="4" />
+                            <path d="M 195 293 C 205 283, 225 283, 235 293" fill="none" stroke="#94a3b8" stroke-width="4" />
+
+                            <!-- White Ceramic Tile on Base (for visual endpoint detection) -->
+                            <rect x="175" y="515" width="120" height="10" rx="2" fill="#ffffff" stroke="#cbd5e1" />
+                            <rect x="177" y="516" width="116" height="3" fill="rgba(255,255,255,0.8)" />
+
+                            <!-- Magnetic Stirrer Plate Base -->
+                            <rect x="165" y="475" width="140" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+                            <rect x="175" y="470" width="120" height="8" rx="2" fill="url(#stirrerPlateGrad)" />
+                            <circle cx="210" cy="495" r="5" fill="#10b981" id="svgStirrerLed" />
+                            <circle cx="260" cy="495" r="8" fill="#475569" stroke="#64748b" />
+
+                            <!-- ================= ERLENMEYER FLASK (CONICAL FLASK) ================= -->
+                            <!-- Flask Liquid Aliquot (Dynamic Color & Fill) -->
+                            <path id="flaskLiquidBody" d="M 194 466 L 276 466 L 260 410 L 210 410 Z" fill="rgba(255, 255, 255, 0.4)" stroke="none" />
+                            <!-- Meniscus surface line of liquid in flask -->
+                            <ellipse id="flaskLiquidSurface" cx="235" cy="410" rx="25" ry="3.5" fill="rgba(255,255,255,0.7)" />
+
+                            <!-- Swirling Flash Effect (Dynamic splash near drop landing point) -->
+                            <circle id="swirlFlashCircle" cx="235" cy="410" r="0" fill="rgba(236, 72, 153, 0.85)" opacity="0" />
+
+                            <!-- Magnetic Stir Bar Inside Flask -->
+                            <rect id="stirBar" x="225" y="460" width="20" height="5" rx="2.5" fill="#f8fafc" stroke="#64748b" stroke-width="0.8" transform-origin="235 462" />
+
+                            <!-- Glass Flask Outline -->
+                            <!-- Flask Neck: (224, 345) to (246, 345), Flared rim (220, 345) to (250, 345) -->
+                            <!-- Body slopes out to (185, 470) and (285, 470) -->
+                            <path d="M 222 345 L 248 345 L 248 375 L 285 466 C 288 472, 282 475, 275 475 L 195 475 C 188 475, 182 472, 185 466 L 222 375 Z"
+                                  fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.2" stroke-linejoin="round" />
+                            <!-- Flask Rim Lip -->
+                            <ellipse cx="235" cy="345" rx="14" ry="3.5" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" />
+                            <!-- Glass Shading Highlight -->
+                            <path d="M 192 465 L 225 385" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" />
+
+                            <!-- Flask Volumetric Graduations -->
+                            <line x1="250" y1="440" x2="265" y2="440" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
+                            <text x="268" y="442" fill="rgba(255,255,255,0.5)" font-size="7" font-family="'JetBrains Mono'">50mL</text>
+                            <line x1="244" y1="420" x2="258" y2="420" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
+                            <text x="261" y="422" fill="rgba(255,255,255,0.5)" font-size="7" font-family="'JetBrains Mono'">100mL</text>
+
+                            <!-- ================= SUBMERGED pH PROBE ================= -->
+                            <!-- Probe Cable & Rod dipping into the flask -->
+                            <path d="M 270 260 L 260 350 L 248 440" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+                            <rect x="256" y="360" width="8" height="50" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1" transform="rotate(-6 260 380)" />
+                            <!-- Glass Bulb of pH probe -->
+                            <circle cx="247" cy="442" r="4.5" fill="#38bdf8" opacity="0.8" />
+
+                            <!-- ================= BURETTE APPARATUS ================= -->
+                            <!-- Burette Top Funnel Lip -->
+                            <path d="M 226 25 L 244 25 L 239 35 L 231 35 Z" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" />
+
+                            <!-- Burette Column (Outer Glass Tube): x=229 to x=241 (width 12px), y=35 to y=315 -->
+                            <rect x="229" y="35" width="12" height="280" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.8" />
+
+                            <!-- Liquid inside Burette (Dynamic height controlled via JS) -->
+                            <rect id="svgBuretteLiquid" x="230" y="35" width="10" height="280" fill="url(#titrantGrad)" />
+                            <!-- Concave Meniscus Curve -->
+                            <ellipse id="svgMeniscusCurve" cx="235" cy="35" rx="5" ry="2" fill="rgba(255,255,255,0.8)" />
+
+                            <!-- Burette Class-A Graduation Marks Group (rendered dynamically in JS for crispness) -->
+                            <g id="buretteTicksGroup"></g>
+
+                            <!-- Glass Reflection Over Tube -->
+                            <rect x="230" y="35" width="4" height="280" fill="url(#glassReflection)" />
+
+                            <!-- Burette Stopcock Valve Barrel (y=315 to y=330) -->
+                            <path d="M 231 315 L 239 315 L 237 325 L 233 325 Z" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.6)" />
+                            <!-- Stopcock Rotating Handle -->
+                            <g id="svgStopcockHandle" transform="translate(235, 325)">
+                                <rect x="-14" y="-3.5" width="28" height="7" rx="2" fill="#ef4444" stroke="#7f1d1d" stroke-width="1" />
+                                <circle cx="0" cy="0" r="3.5" fill="#ffffff" />
+                            </g>
+
+                            <!-- Burette Jet Tip (y=325 to y=348) -->
+                            <path d="M 233 325 L 237 325 L 236 346 L 234 346 Z" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.6)" />
+
+                            <!-- ================= FALLING DROPLET PHYSICS ================= -->
+                            <ellipse id="svgFallingDrop" cx="235" cy="350" rx="2.5" ry="3.5" fill="#60a5fa" opacity="0" />
+
+                            <!-- Ripple circles when drop lands -->
+                            <ellipse id="svgRipple1" cx="235" cy="410" rx="3" ry="1" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1" opacity="0" />
+                        </svg>
+                    </div>
+
+                    <!-- Stage Bottom Quick Bar -->
+                    <div class="stage-quickbar">
+                        <div class="stirrer-controls">
+                            <span style="font-size: 0.76rem; color: var(--text-secondary); font-weight: 600;">Magnetic Stirrer:</span>
+                            <button class="stirrer-knob-btn" id="btnStirOff" onclick="setStirrerSpeed(0)">Off</button>
+                            <button class="stirrer-knob-btn active" id="btnStirLow" onclick="setStirrerSpeed(1)">Low</button>
+                            <button class="stirrer-knob-btn" id="btnStirMed" onclick="setStirrerSpeed(2)">Med</button>
+                            <button class="stirrer-knob-btn" id="btnStirHigh" onclick="setStirrerSpeed(3)">High</button>
+                        </div>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #94a3b8;">
+                            Total Volume NaOH Added: <span id="lblTotalDispensed" style="color: #60a5fa; font-weight: 700;">0.00 mL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Titration Graph & Readings -->
+                <div class="sidebar-col">
+                    <!-- Real-Time Titration Curve Card -->
+                    <div class="lab-card" style="padding-bottom: 0.9rem;">
+                        <div class="card-header-line">
+                            <div>
+                                <h3>📈 Live Titration Curve</h3>
+                                <div class="card-subtitle">pH vs Volume of 0.100 M NaOH Added</div>
+                            </div>
+                            <span class="pill-badge pill-cyan" id="badgeEquivalence">Searching Eq...</span>
+                        </div>
+
+                        <!-- Canvas Plot -->
+                        <div class="chart-container">
+                            <canvas id="titrationChartCanvas"></canvas>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: -0.4rem;">
+                            <span>Indicator Active Range: <strong id="lblActiveIndicatorRange" style="color: #f43f5e;">pH 8.2 - 10.0</strong></span>
+                            <span>Equivalence Inflection: <strong>pH 8.35</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Current Burette & Solution Readings Card -->
+                    <div class="lab-card">
+                        <div class="card-header-line">
+                            <div>
+                                <h3>🔬 Active Trial Readings</h3>
+                                <div class="card-subtitle">Class-A Standard Quantitative Record</div>
+                            </div>
+                        </div>
+
+                        <div class="reading-summary-card">
+                            <div class="metric-box">
+                                <div class="metric-label">Initial Vol (Vᵢ)</div>
+                                <div class="metric-value" id="valInitialBurette">0.00 <span style="font-size:0.7rem;">mL</span></div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-label">Current Vol (V)</div>
+                                <div class="metric-value" id="valCurrentBurette">0.00 <span style="font-size:0.7rem;">mL</span></div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-label">Titer Dispensed (ΔV)</div>
+                                <div class="metric-value" style="color: #38bdf8;" id="valTiterDispensed">0.00 <span style="font-size:0.7rem;">mL</span></div>
+                            </div>
+                            <div class="metric-box">
+                                <div class="metric-label">Calculated [H⁺]</div>
+                                <div class="metric-value" style="color: #34d399;" id="valCurrentHydronium">5.6e-5 <span style="font-size:0.7rem;">M</span></div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(10, 14, 23, 0.6); padding: 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.78rem; color: var(--text-secondary);">
+                            <strong style="color: #f8fafc;">💡 Laboratory Tip (Criterion B/C):</strong>
+                            For Trial 1 (Rough/Screening), add titrant quickly to find the approximate neutralization range. For Trials 2 &amp; 3, dispense rapidly until within 1.0 mL of expected titer, then switch to <strong>Dropwise (+0.05 mL)</strong> to spot the permanent pale-pink endpoint that persists for 30+ seconds!
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= SECTION 2: LAB NOTEBOOK & STOICHIOMETRY ================= -->
+        <div id="section-notebook" class="view-section">
+            <div class="notebook-wrapper">
+                <!-- Data Recording Table Card -->
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>📋 Quantitative Titration Data Table</h3>
+                            <div class="card-subtitle">Record and verify concordant titers within ±0.10 mL (Class-A precision)</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn-action btn-secondary" onclick="exportDataToCSV()">
+                                📤 Export CSV
+                            </button>
+                            <button class="btn-action btn-emerald" onclick="recalculateStoichiometry()">
+                                ⚡ Calculate Stoichiometry
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="lab-table" id="notebookTable">
+                            <thead>
+                                <tr>
+                                    <th>Trial Run</th>
+                                    <th>Water Sample Source</th>
+                                    <th>Aliquot Vol (mL)</th>
+                                    <th>Initial Burette Vᵢ (mL)</th>
+                                    <th>Final Burette V_f (mL)</th>
+                                    <th>Titer Vol ΔV (mL)</th>
+                                    <th>Endpoint Color Observed</th>
+                                    <th>Status / Concordance</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notebookTableBody">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(10, 14, 23, 0.65); padding: 0.85rem 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); flex-wrap: wrap; gap: 0.8rem;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary);">Concordant Titer Condition:</span>
+                            <span style="font-size: 0.82rem; font-weight: 700; color: #34d399;">At least 2 trials with ΔV within ±0.10 mL</span>
+                        </div>
+                        <div style="display: flex; gap: 1.5rem; align-items: center;">
+                            <div>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Mean Concordant Titer (V̄):</span>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 800; color: #60a5fa; margin-left: 0.4rem;" id="valMeanConcordant">-- mL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guided Stoichiometric Calculations -->
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>🧮 Step-by-Step Stoichiometric Acidity Determination</h3>
+                            <div class="card-subtitle">Criterion C: Mathematical processing of aqueous neutralization</div>
+                        </div>
+                        <span class="pill-badge pill-cyan">Standard 1:1 Net Neutralization: H⁺(aq) + OH⁻(aq) → H₂O(l)</span>
+                    </div>
+
+                    <div class="calc-grid">
+                        <!-- Step 1: Moles of NaOH -->
+                        <div class="step-box">
+                            <span class="step-badge">STEP 1</span>
+                            <h4 class="step-title">Calculate Moles of NaOH Used</h4>
+                            <div class="step-formula">n(NaOH) = C(NaOH) × V̄_NaOH (L)</div>
+                            <p class="step-calc-body">
+                                Using standardized base concentration <strong>C = 0.100 mol·L⁻¹</strong> and our mean concordant titer volume in liters:
+                            </p>
+                            <div class="calc-result-pill" id="stepResult1">
+                                n(NaOH) = -- mol
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Moles of Neutralized Acid -->
+                        <div class="step-box">
+                            <span class="step-badge">STEP 2</span>
+                            <h4 class="step-title">Stoichiometric Acid Equivalence</h4>
+                            <div class="step-formula">n(H⁺ neutralized) = n(OH⁻ added)</div>
+                            <p class="step-calc-body">
+                                Because hydrogen ions and hydroxide ions react in an exact 1:1 molar ratio at the neutral equivalence point:
+                            </p>
+                            <div class="calc-result-pill" id="stepResult2">
+                                n(H⁺) = -- mol
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Total Titratable Acidity Concentration -->
+                        <div class="step-box">
+                            <span class="step-badge">STEP 3</span>
+                            <h4 class="step-title">Total Titratable Acidity of Water Sample</h4>
+                            <div class="step-formula">[H⁺] = n(H⁺) ÷ V_water aliquot (L)</div>
+                            <p class="step-calc-body">
+                                Concentration of neutralizable acidic protons in the environmental water body:
+                            </p>
+                            <div class="calc-result-pill" id="stepResult3">
+                                [H⁺] = -- mol·L⁻¹
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Environmental CaCO3 Equivalent -->
+                        <div class="step-box">
+                            <span class="step-badge">STEP 4</span>
+                            <h4 class="step-title">Standard Environmental Metric (CaCO₃ Eq.)</h4>
+                            <div class="step-formula">Acidity (mg/L CaCO₃) = ([H⁺] ÷ 2) × 100,090</div>
+                            <p class="step-calc-body">
+                                Environmental regulatory agencies (EPA / WHO) quantify environmental acidity as equivalent calcium carbonate needed for neutralization:
+                            </p>
+                            <div class="calc-result-pill" id="stepResult4">
+                                Acidity = -- mg/L CaCO₃
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SECTION 3: ENVIRONMENTAL COMPARISON ================= -->
+        <div id="section-ecological" class="view-section">
+            <div class="eco-grid">
+                <!-- Ecosystem Comparison Card -->
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>🏞️ Comparative Acidity Across 5 Aquatic Ecosystems</h3>
+                            <div class="card-subtitle">Empirical titratable acidity and pH thresholds</div>
+                        </div>
+                    </div>
+
+                    <!-- Sample 1 -->
+                    <div class="eco-stat-bar">
+                        <div class="eco-bar-header">
+                            <span style="color: #fb7185; font-weight: 700;">Quarry / Acid Mine Drainage</span>
+                            <span style="font-family:'JetBrains Mono'">pH 3.10 · 22.4 mL NaOH</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 95%; background: linear-gradient(90deg, #f43f5e, #e11d48);"></div>
+                        </div>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Severe sulfuric acid leaching. Heavy metals (Al³⁺, Fe³⁺) highly mobile. Fish reproductive failure.</span>
+                    </div>
+
+                    <!-- Sample 2 -->
+                    <div class="eco-stat-bar">
+                        <div class="eco-bar-header">
+                            <span style="color: #f59e0b; font-weight: 700;">Industrial River (Downstream)</span>
+                            <span style="font-family:'JetBrains Mono'">pH 4.25 · 14.8 mL NaOH</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 63%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                        </div>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Acid precipitation runoff (SO₂/NOₓ). Loss of sensitive insects (mayflies, stoneflies).</span>
+                    </div>
+
+                    <!-- Sample 3 -->
+                    <div class="eco-stat-bar">
+                        <div class="eco-bar-header">
+                            <span style="color: #38bdf8; font-weight: 700;">Agricultural Runoff Canal</span>
+                            <span style="font-family:'JetBrains Mono'">pH 4.95 · 9.6 mL NaOH</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 41%; background: linear-gradient(90deg, #06b6d4, #0284c7);"></div>
+                        </div>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Ammonium nitrification and phosphate fertilizer run-off. Sub-lethal stress to amphibians.</span>
+                    </div>
+
+                    <!-- Sample 4 -->
+                    <div class="eco-stat-bar">
+                        <div class="eco-bar-header">
+                            <span style="color: #a78bfa; font-weight: 700;">Woodland Peat Pond</span>
+                            <span style="font-family:'JetBrains Mono'">pH 5.65 · 4.2 mL NaOH</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 18%; background: linear-gradient(90deg, #8b5cf6, #7c3aed);"></div>
+                        </div>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Naturally buffered by humic and fulvic organic tannins. Adapted macroinvertebrate community.</span>
+                    </div>
+
+                    <!-- Sample 5 -->
+                    <div class="eco-stat-bar">
+                        <div class="eco-bar-header">
+                            <span style="color: #34d399; font-weight: 700;">Pristine Alpine Stream (Control)</span>
+                            <span style="font-family:'JetBrains Mono'">pH 6.75 · 0.6 mL NaOH</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 3%; background: linear-gradient(90deg, #10b981, #059669);"></div>
+                        </div>
+                        <span style="font-size: 0.72rem; color: var(--text-muted);">Healthy balanced watershed. High dissolved oxygen, abundant trout and diverse biodiversity.</span>
+                    </div>
+                </div>
+
+                <!-- Remediation & Environmental Engineering Card -->
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>🚜 Lake Liming &amp; Watershed Remediation Model</h3>
+                            <div class="card-subtitle">Calculating agricultural lime (CaCO₃) required to restore ecosystem pH</div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 0.8rem;">
+                        <p>
+                            When lakes succumb to critical acidification (<strong style="color: #ef4444;">pH &lt; 5.0</strong>), ecological intervention via <strong>Liming</strong> is deployed in Sweden, Norway, and North America. Powered limestone (<strong style="color: #60a5fa;">CaCO₃</strong>) or slaked lime (<strong style="color: #60a5fa;">Ca(OH)₂</strong>) is dispersed by helicopters and boats.
+                        </p>
+
+                        <div style="background: rgba(10, 14, 23, 0.7); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem;">
+                            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Remediation Reaction:</div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: #34d399; font-weight: 700; margin-top: 4px;">
+                                CaCO₃(s) + 2H⁺(aq) → Ca²⁺(aq) + H₂O(l) + CO₂(g)
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.4rem;">
+                            <label class="form-label">Simulate Reservoir Volume for Selected Water Sample:</label>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <input type="number" id="remedLakeVolume" class="custom-input" value="50000" min="1000" step="5000" style="flex: 1;" oninput="updateRemediationCalc()">
+                                <span style="display: flex; align-items: center; font-size: 0.8rem; color: var(--text-muted);">Liters</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-box" style="margin-top: 0.5rem; background: rgba(37, 99, 235, 0.15); border-color: rgba(59, 130, 246, 0.35);">
+                            <div class="metric-label" style="color: #93c5fd;">Required Pure Agricultural Lime (CaCO₃)</div>
+                            <div class="metric-value" style="color: #ffffff; font-size: 1.4rem;" id="lblRemediationLimeNeeded">
+                                148.2 kg
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SECTION 4: INQUIRY QUIZ ================= -->
+        <div id="section-quiz" class="view-section">
+            <div class="quiz-container">
+                <div class="lab-card">
+                    <div class="card-header-line">
+                        <div>
+                            <h3>📝 IB MYP Criterion B &amp; C Scientific Evaluation</h3>
+                            <div class="card-subtitle">Formative assessment on titration methodology, systematic errors, and data validity</div>
+                        </div>
+                        <span class="pill-badge pill-cyan" id="quizScoreBadge">Score: 0 / 5</span>
+                    </div>
+
+                    <!-- Question 1 -->
+                    <div class="quiz-item" id="qBox1">
+                        <div class="quiz-question">
+                            <span class="quiz-num">1</span>
+                            <span>Why is Trial 1 typically designated as a "Rough / Screening" trial and omitted from the concordant titer average?</span>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt-btn" onclick="checkAnswer(1, 0, false)">A) Because the sample aliquot in Trial 1 has not been properly calibrated with distilled water.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(1, 1, true)">B) To quickly locate the approximate neutralization volume without risking slow dropwise over-titration.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(1, 2, false)">C) Because the magnetic stirrer requires one warm-up trial to reach equilibrium.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(1, 3, false)">D) Because phenolphthalein does not dissociate during the first exposure to hydroxide ions.</button>
+                        </div>
+                        <div class="quiz-feedback" id="qFeedback1"></div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="quiz-item" id="qBox2">
+                        <div class="quiz-question">
+                            <span class="quiz-num">2</span>
+                            <span>A student reads the burette from above eye-level rather than perpendicular to the bottom of the meniscus. What type of experimental error is introduced?</span>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt-btn" onclick="checkAnswer(2, 0, false)">A) Random error due to atmospheric pressure fluctuation.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(2, 1, true)">B) Systematic parallax error that causes an apparent lower volume reading.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(2, 2, false)">C) Stoichiometric discrepancy caused by air bubbling in the nozzle.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(2, 3, false)">D) Chemical indicator degradation error.</button>
+                        </div>
+                        <div class="quiz-feedback" id="qFeedback2"></div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-item" id="qBox3">
+                        <div class="quiz-question">
+                            <span class="quiz-num">3</span>
+                            <span>Why does the pH jump precipitously (from ~5.5 to ~9.5) with just a single extra drop of NaOH near the equivalence point?</span>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt-btn" onclick="checkAnswer(3, 0, false)">A) The sodium ions suddenly catalyst a rapid endothermic decomposition.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(3, 1, false)">B) The magnetic stirrer increases temperature, lowering ionic product of water.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(3, 2, true)">C) The solution runs out of buffering [H⁺] ions; each unreacted [OH⁻] exponentially shifts the logarithmic -log₁₀[H⁺] scale.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(3, 3, false)">D) Phenolphthalein reacts exothermically to consume all remaining hydronium.</button>
+                        </div>
+                        <div class="quiz-feedback" id="qFeedback3"></div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="quiz-item" id="qBox4">
+                        <div class="quiz-question">
+                            <span class="quiz-num">4</span>
+                            <span>When titrating a weakly acidic environmental peat pond sample with strong NaOH, why is phenolphthalein preferred over methyl orange?</span>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt-btn" onclick="checkAnswer(4, 0, true)">A) The conjugate base of weak organic acids hydrolyzes water, placing the true equivalence point in the slightly alkaline region (pH 8.0 - 9.0).</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(4, 1, false)">B) Methyl orange is toxic to the digital pH probe glass membrane.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(4, 2, false)">C) Weak acids only change color when heated by strong base neutralization.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(4, 3, false)">D) Phenolphthalein has a higher molar mass which stabilizes the titration curve.</button>
+                        </div>
+                        <div class="quiz-feedback" id="qFeedback4"></div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="quiz-item" id="qBox5">
+                        <div class="quiz-question">
+                            <span class="quiz-num">5</span>
+                            <span>Two student trials yielded titer volumes of 14.80 mL and 14.85 mL. Are these results concordant under standard analytical laboratory criteria?</span>
+                        </div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt-btn" onclick="checkAnswer(5, 0, true)">A) Yes, because the difference (0.05 mL) is well within the acceptable ±0.10 mL tolerance.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(5, 1, false)">B) No, titers must be identical to within 0.001 mL for analytical validity.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(5, 2, false)">C) No, because at least 5 concordant trials are required before taking an average.</button>
+                            <button class="quiz-opt-btn" onclick="checkAnswer(5, 3, false)">D) Only if the initial burette reading was exactly 0.00 mL in both trials.</button>
+                        </div>
+                        <div class="quiz-feedback" id="qFeedback5"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Global Floating Toast Notification -->
+    <div id="toastNotification" class="toast-notify">
+        <span id="toastIcon">✨</span>
+        <span id="toastMessage">Notification message</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        /* =========================================================================
+           1. SCIENTIFIC DATABASE & WATER SAMPLE MODELS
+           ========================================================================= */
+        const WATER_SAMPLES = {
+            quarry: {
+                id: 'quarry',
+                name: 'Quarry / Acid Mine Drainage',
+                location: 'Abandoned Pyrite Mine Runoff, Sector B',
+                initialPh: 3.10,
+                titratableAcidity: 0.0896, // mol/L H+
+                acidSpecies: 'Sulfuric Acid (H₂SO₄) & Heavy Metal Cations',
+                expectedTiter25ml: 22.40,
+                colorTint: 'rgba(234, 179, 8, 0.15)', // slightly yellowish mineral tinge
+                description: 'Severely affected by iron pyrite oxidation forming high concentrations of sulfuric acid. High ecological toxicity.'
+            },
+            river: {
+                id: 'river',
+                name: 'Industrial River Downstream',
+                location: 'River Basin, Downstream of Manufacturing Zone',
+                initialPh: 4.25,
+                titratableAcidity: 0.0592, // mol/L H+
+                acidSpecies: 'Sulfuric & Nitric Acid (H₂SO₄ / HNO₃ Acid Rain)',
+                expectedTiter25ml: 14.80,
+                colorTint: 'rgba(255, 255, 255, 0.08)',
+                description: 'Carries chronic acidic deposition from combustion emissions. Endangers macroinvertebrate populations.'
+            },
+            agri: {
+                id: 'agri',
+                name: 'Agricultural Runoff Canal',
+                location: 'Drainage Channel, Intensive Farmland Outflow',
+                initialPh: 4.95,
+                titratableAcidity: 0.0384, // mol/L H+
+                acidSpecies: 'Nitric, Phosphoric & Ammonium Nitrification',
+                expectedTiter25ml: 9.60,
+                colorTint: 'rgba(16, 185, 129, 0.12)', // subtle green algae tint
+                description: 'Acidified through fertilizer decomposition and nitrification. Moderate aquatic stress.'
+            },
+            pond: {
+                id: 'pond',
+                name: 'Woodland Peat Pond',
+                location: 'Pine Forest Peatland, Natural Reserve',
+                initialPh: 5.65,
+                titratableAcidity: 0.0168, // mol/L H+
+                acidSpecies: 'Humic & Fulvic Organic Tannins (Weak Acids)',
+                expectedTiter25ml: 4.20,
+                colorTint: 'rgba(217, 119, 6, 0.15)', // brownish tannin tint
+                description: 'Natural humic acidity buffered by dissolved organic matter. Resilient ecosystem.'
+            },
+            alpine: {
+                id: 'alpine',
+                name: 'Pristine Alpine Stream (Control)',
+                location: 'High Altitude Glacial Headwaters',
+                initialPh: 6.75,
+                titratableAcidity: 0.0024, // mol/L H+
+                acidSpecies: 'Dissolved Atmospheric Carbonic Acid (H₂CO₃)',
+                expectedTiter25ml: 0.60,
+                colorTint: 'rgba(56, 189, 248, 0.08)',
+                description: 'Clean reference baseline. Pristine water quality with optimal biodiversity.'
+            }
+        };
+
+        const INDICATORS = {
+            phenolphthalein: {
+                name: 'Phenolphthalein',
+                rangeText: 'pH 8.2 - 10.0',
+                acidColor: 'rgba(255, 255, 255, 0.05)',
+                transitionColor: 'rgba(251, 113, 133, 0.45)', // delicate pale pink
+                baseColor: 'rgba(219, 39, 119, 0.85)', // rich fuchsia pink
+                getColor: (ph) => {
+                    if (ph < 8.2) return 'rgba(255, 255, 255, 0.1)';
+                    if (ph >= 10.0) return 'rgba(219, 39, 119, 0.88)';
+                    // Gradual fade into pink
+                    const alpha = ((ph - 8.2) / 1.8) * 0.8 + 0.1;
+                    return `rgba(244, 63, 94, ${alpha.toFixed(3)})`;
+                },
+                getColorName: (ph) => {
+                    if (ph < 8.2) return 'Colorless / Clear';
+                    if (ph >= 8.2 && ph <= 8.5) return 'Faint Pale Pink (Endpoint!)';
+                    if (ph <= 9.2) return 'Distinct Rose Pink';
+                    return 'Deep Magenta / Fuchsia';
+                }
+            },
+            bromothymol: {
+                name: 'Bromothymol Blue',
+                rangeText: 'pH 6.0 - 7.6',
+                acidColor: 'rgba(234, 179, 8, 0.8)', // yellow
+                transitionColor: 'rgba(16, 185, 129, 0.8)', // green
+                baseColor: 'rgba(37, 99, 235, 0.85)', // royal blue
+                getColor: (ph) => {
+                    if (ph < 6.0) return 'rgba(234, 179, 8, 0.75)'; // yellow
+                    if (ph > 7.6) return 'rgba(37, 99, 235, 0.85)'; // blue
+                    // green transition
+                    const ratio = (ph - 6.0) / 1.6;
+                    const r = Math.round(234 - ratio * 197);
+                    const g = Math.round(179 - ratio * 80);
+                    const b = Math.round(8 + ratio * 227);
+                    return `rgba(${r}, ${g}, ${b}, 0.8)`;
+                },
+                getColorName: (ph) => {
+                    if (ph < 6.0) return 'Bright Yellow';
+                    if (ph >= 6.0 && ph <= 7.2) return 'Yellow-Green';
+                    if (ph <= 7.6) return 'Emerald Green (Endpoint)';
+                    return 'Deep Cobalt Blue';
+                }
+            },
+            methylOrange: {
+                name: 'Methyl Orange',
+                rangeText: 'pH 3.1 - 4.4',
+                acidColor: 'rgba(239, 68, 68, 0.85)', // red
+                transitionColor: 'rgba(249, 115, 22, 0.85)', // orange
+                baseColor: 'rgba(234, 179, 8, 0.85)', // yellow
+                getColor: (ph) => {
+                    if (ph < 3.1) return 'rgba(239, 68, 68, 0.85)'; // red
+                    if (ph > 4.4) return 'rgba(234, 179, 8, 0.85)'; // yellow
+                    return 'rgba(249, 115, 22, 0.85)'; // orange
+                },
+                getColorName: (ph) => {
+                    if (ph < 3.1) return 'Red / Crimson';
+                    if (ph <= 4.4) return 'Orange (Endpoint)';
+                    return 'Golden Yellow';
+                }
+            }
+        };
+
+        /* =========================================================================
+           2. LAB STATE VARIABLES
+           ========================================================================= */
+        const STATE = {
+            activeSampleKey: 'river',
+            aliquotVolume: 25.0, // mL
+            baseMolarity: 0.100, // mol/L NaOH
+            indicatorKey: 'phenolphthalein',
+            buretteInitial: 0.00, // mL
+            buretteCurrent: 0.00, // mL
+            buretteMax: 50.00, // mL
+            dispensedThisTrial: 0.00, // mL
+            stirrerSpeed: 1, // 0 = off, 1 = low, 2 = med, 3 = high
+            isDispensing: false,
+            dispenseMode: null, // 'dropwise', 'stream', or null
+            dispenseInterval: null,
+            stirrerAnimId: null,
+            stirrerAngle: 0,
+            audioEnabled: true,
+            trialNumber: 1,
+            trialRecords: [],
+            chartHistory: [], // array of {v: volume, ph: pH}
+            quizScore: 0,
+            quizAnswered: {}
+        };
+
+        /* Web Audio API Context */
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playDripSound() {
+            if (!STATE.audioEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                const startFreq = 800 + Math.random() * 200;
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(startFreq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.06);
+
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.09);
+            } catch (e) {
+                // Audio might fail in background without user gesture
+            }
+        }
+
+        function playClickSound() {
+            if (!STATE.audioEnabled) return;
+            initAudio();
+            if (!audioCtx) return;
+
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {}
+        }
+
+        function toggleAudio() {
+            STATE.audioEnabled = !STATE.audioEnabled;
+            const btn = document.getElementById('soundToggleBtn');
+            btn.textContent = STATE.audioEnabled ? '🔊' : '🔇';
+            btn.title = STATE.audioEnabled ? 'Sound Effects Enabled' : 'Sound Effects Muted';
+            showToast(STATE.audioEnabled ? 'Laboratory audio unmuted 🔊' : 'Laboratory audio muted 🔇');
+        }
+
+        /* =========================================================================
+           3. MATHEMATICAL PH SIMULATION ENGINE
+           ========================================================================= */
+        /**
+         * Calculates exact pH as a function of added volume of standardized NaOH.
+         * Accounts for weak acid equilibrium, buffer region, sharp equivalence jump,
+         * and post-equivalence excess hydroxide dilution.
+         */
+        function calculatePH(volumeAdded) {
+            const sample = WATER_SAMPLES[STATE.activeSampleKey];
+            const aliquotFactor = STATE.aliquotVolume / 25.0;
+            const trueEquivalenceVol = sample.expectedTiter25ml * aliquotFactor;
+            const initPh = sample.initialPh;
+
+            // Total volume of solution in flask in mL
+            const totalVolFlask = STATE.aliquotVolume + volumeAdded;
+
+            if (volumeAdded <= 0) {
+                return initPh;
+            }
+
+            // Before equivalence point: Buffer equation behavior
+            if (volumeAdded < trueEquivalenceVol) {
+                const fractionNeutralized = volumeAdded / trueEquivalenceVol;
+
+                // For weak and polyprotic environmental acids, pH rises slowly in buffer region
+                // Henderson-Hasselbalch-like shift
+                const bufferShift = Math.log10(fractionNeutralized / (1.0001 - fractionNeutralized + 0.0001));
+
+                // Equivalence point pH (typically 8.2 - 8.5 for weak environmental acid neutralized by strong base)
+                const eqPh = 8.35;
+                const midPh = (initPh + eqPh) / 2.0;
+
+                let ph = midPh + 0.85 * bufferShift;
+
+                // Ensure monotonic progression
+                if (ph < initPh) ph = initPh + 0.02 * (volumeAdded);
+                if (ph > eqPh - 0.4) {
+                    // Smooth transition right before equivalence
+                    const proximity = (volumeAdded / trueEquivalenceVol);
+                    if (proximity > 0.96) {
+                        const t = (proximity - 0.96) / 0.04;
+                        ph = 7.0 + t * 1.35;
+                    }
+                }
+                return Math.min(Math.max(ph, initPh), 8.35);
+            }
+
+            // At exact equivalence point:
+            if (Math.abs(volumeAdded - trueEquivalenceVol) < 0.01) {
+                return 8.35;
+            }
+
+            // After equivalence point: Excess OH- ions dominate
+            const excessVolMl = volumeAdded - trueEquivalenceVol;
+            const excessMolesBase = (excessVolMl / 1000.0) * STATE.baseMolarity;
+            const excessOHMolarity = excessMolesBase / (totalVolFlask / 1000.0);
+
+            // Kw = 1e-14
+            const pOH = -Math.log10(Math.max(excessOHMolarity, 1e-14));
+            let postPh = 14.0 - pOH;
+
+            // Cap at realistic maximum for 0.1 M NaOH (~12.8)
+            postPh = Math.min(Math.max(postPh, 8.35), 12.85);
+            return postPh;
+        }
+
+        /* =========================================================================
+           4. VISUAL RENDERING & APPARATUS UPDATES
+           ========================================================================= */
+        function initBuretteTicks() {
+            const group = document.getElementById('buretteTicksGroup');
+            group.innerHTML = '';
+
+            // Height is 280px (y=35 to y=315), corresponding to 50.00 mL
+            // Scale: 280px / 50 mL = 5.6 px per mL
+            for (let ml = 0; ml <= 50; ml += 1) {
+                const y = 35 + ml * 5.6;
+                const isMajor = ml % 5 === 0;
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', isMajor ? '236' : '238');
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', '241');
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', isMajor ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.4)');
+                line.setAttribute('stroke-width', isMajor ? '1' : '0.6');
+                group.appendChild(line);
+
+                if (isMajor) {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', '243');
+                    text.setAttribute('y', y + 2.5);
+                    text.setAttribute('fill', 'rgba(255,255,255,0.7)');
+                    text.setAttribute('font-size', '6');
+                    text.setAttribute('font-family', "'JetBrains Mono', monospace");
+                    text.textContent = ml;
+                    group.appendChild(text);
+                }
+            }
+        }
+
+        function updateApparatusVisuals() {
+            const currentVol = STATE.buretteCurrent;
+            const liquidSvg = document.getElementById('svgBuretteLiquid');
+            const meniscusCurve = document.getElementById('svgMeniscusCurve');
+
+            // Scale: 5.6 px per mL
+            // Meniscus y starts at 35 + (currentVol * 5.6)
+            const meniscusY = 35 + (currentVol * 5.6);
+            const remainingHeight = Math.max(0, 315 - meniscusY);
+
+            liquidSvg.setAttribute('y', meniscusY);
+            liquidSvg.setAttribute('height', remainingHeight);
+
+            meniscusCurve.setAttribute('cy', meniscusY);
+
+            // Update Flask liquid color and level
+            const curPh = calculatePH(STATE.dispensedThisTrial);
+            const indicator = INDICATORS[STATE.indicatorKey];
+            const flaskLiquidColor = indicator.getColor(curPh);
+
+            const flaskLiquid = document.getElementById('flaskLiquidBody');
+            const flaskSurface = document.getElementById('flaskLiquidSurface');
+
+            flaskLiquid.setAttribute('fill', flaskLiquidColor);
+            flaskSurface.setAttribute('fill', flaskLiquidColor);
+
+            // Liquid level in flask rises slightly as titrant is added
+            const levelRise = Math.min(25, (STATE.dispensedThisTrial / 30.0) * 15);
+            const baseTopY = 410 - levelRise;
+            flaskLiquid.setAttribute('d', `M 194 466 L 276 466 L ${260 + levelRise*0.2} ${baseTopY} L ${210 - levelRise*0.2} ${baseTopY} Z`);
+            flaskSurface.setAttribute('cy', baseTopY);
+
+            // Update Digital LCD Display
+            document.getElementById('lcdPhValue').textContent = curPh.toFixed(2);
+            const colorName = indicator.getColorName(curPh);
+            document.getElementById('indicatorColorName').textContent = colorName;
+
+            // Endpoint status hint
+            const hintElem = document.getElementById('indicatorEndpointHint');
+            if (curPh >= 8.2 && curPh <= 8.5 && STATE.indicatorKey === 'phenolphthalein') {
+                hintElem.textContent = '★ CRITICAL ENDPOINT REACHED!';
+                hintElem.style.color = '#34d399';
+            } else if (curPh > 8.5 && STATE.indicatorKey === 'phenolphthalein') {
+                hintElem.textContent = '⚠️ Over-titrated past endpoint!';
+                hintElem.style.color = '#f43f5e';
+            } else {
+                hintElem.textContent = '';
+            }
+
+            // Update Metrics
+            document.getElementById('valCurrentBurette').innerHTML = `${currentVol.toFixed(2)} <span style="font-size:0.7rem;">mL</span>`;
+            document.getElementById('valTiterDispensed').innerHTML = `${STATE.dispensedThisTrial.toFixed(2)} <span style="font-size:0.7rem;">mL</span>`;
+            document.getElementById('lblTotalDispensed').textContent = `${STATE.dispensedThisTrial.toFixed(2)} mL`;
+
+            const hydroniumM = Math.pow(10, -curPh);
+            document.getElementById('valCurrentHydronium').innerHTML = `${hydroniumM.toExponential(2)} <span style="font-size:0.7rem;">M</span>`;
+
+            // Draw 4x Loupe Canvas
+            drawLoupeView(currentVol);
+
+            // Draw Chart
+            drawChart();
+        }
+
+        /* 4X Loupe Magnifier Canvas Drawing */
+        function drawLoupeView(currentVol) {
+            const canvas = document.getElementById('loupeCanvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Background glass gradient
+            const bgGrad = ctx.createLinearGradient(0, 0, width, 0);
+            bgGrad.addColorStop(0, '#0c1527');
+            bgGrad.addColorStop(0.5, '#162238');
+            bgGrad.addColorStop(1, '#0c1527');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+
+            // Center y corresponds to currentVol
+            // 1 mL = 40px in loupe magnification
+            const pxPerMl = 45;
+            const centerY = height / 2;
+
+            // Draw graduation lines from (currentVol - 1.5) to (currentVol + 1.5)
+            const minMl = Math.floor((currentVol - 1.5) * 10) / 10;
+            const maxMl = Math.ceil((currentVol + 1.5) * 10) / 10;
+
+            for (let v = minMl; v <= maxMl; v = Math.round((v + 0.1) * 10) / 10) {
+                if (v < 0 || v > 50) continue;
+                const delta = v - currentVol;
+                const y = centerY + (delta * pxPerMl);
+
+                const isWholeMl = Math.abs(v - Math.round(v)) < 0.001;
+                const isHalfMl = Math.abs(v * 10 % 5) < 0.001 && !isWholeMl;
+
+                ctx.strokeStyle = isWholeMl ? '#ffffff' : (isHalfMl ? '#94a3b8' : '#475569');
+                ctx.lineWidth = isWholeMl ? 2.2 : (isHalfMl ? 1.5 : 1.0);
+
+                const lineLen = isWholeMl ? 45 : (isHalfMl ? 30 : 18);
+                const xStart = width - 25 - lineLen;
+                const xEnd = width - 25;
+
+                ctx.beginPath();
+                ctx.moveTo(xStart, y);
+                ctx.lineTo(xEnd, y);
+                ctx.stroke();
+
+                if (isWholeMl) {
+                    ctx.fillStyle = '#60a5fa';
+                    ctx.font = 'bold 12px "JetBrains Mono"';
+                    ctx.textAlign = 'right';
+                    ctx.fillText(`${Math.round(v)}`, xStart - 8, y + 4);
+                }
+            }
+
+            // Liquid Titrant Fill in Burette
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.28)';
+            ctx.fillRect(25, centerY, width - 50, height - centerY);
+
+            // Meniscus Curve at CenterY
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.ellipse(width / 2, centerY, width / 2 - 25, 12, 0, 0, Math.PI);
+            ctx.stroke();
+
+            // Center Target Crosshair (Red Alignment Guide)
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(15, centerY);
+            ctx.lineTo(width - 15, centerY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Glass Reflection Overlay
+            const glassGloss = ctx.createLinearGradient(0, 0, width, height);
+            glassGloss.addColorStop(0, 'rgba(255,255,255,0.15)');
+            glassGloss.addColorStop(0.3, 'rgba(255,255,255,0.02)');
+            glassGloss.addColorStop(0.8, 'rgba(255,255,255,0.0)');
+            glassGloss.addColorStop(1, 'rgba(255,255,255,0.1)');
+            ctx.fillStyle = glassGloss;
+            ctx.fillRect(0, 0, width, height);
+
+            // Readout text below loupe
+            document.getElementById('loupeReadoutText').textContent = `${currentVol.toFixed(2)} mL`;
+        }
+
+        /* Live Titration Chart Canvas */
+        function drawChart() {
+            const canvas = document.getElementById('titrationChartCanvas');
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * window.devicePixelRatio || 350;
+            canvas.height = rect.height * window.devicePixelRatio || 250;
+
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            const padLeft = 40;
+            const padRight = 20;
+            const padTop = 20;
+            const padBottom = 30;
+
+            const plotW = w - padLeft - padRight;
+            const plotH = h - padTop - padBottom;
+
+            // Axes & Grid
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1;
+
+            // pH Grid Lines (0, 2, 4, 6, 7, 8, 10, 12, 14)
+            for (let ph = 0; ph <= 14; ph += 2) {
+                const y = padTop + plotH - (ph / 14.0) * plotH;
+                ctx.beginPath();
+                ctx.moveTo(padLeft, y);
+                ctx.lineTo(padLeft + plotW, y);
+                ctx.stroke();
+
+                ctx.fillStyle = ph === 7 ? '#10b981' : '#64748b';
+                ctx.font = '10px "JetBrains Mono"';
+                ctx.textAlign = 'right';
+                ctx.fillText(`${ph}`, padLeft - 6, y + 3.5);
+            }
+
+            // Neutral pH 7 dashed line
+            const yNeutral = padTop + plotH - (7.0 / 14.0) * plotH;
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(padLeft, yNeutral);
+            ctx.lineTo(padLeft + plotW, yNeutral);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Max X scale in mL (30 mL max, or dynamic if sample requires >25 mL)
+            const sample = WATER_SAMPLES[STATE.activeSampleKey];
+            const maxVolX = Math.max(30, (sample.expectedTiter25ml * 1.3));
+
+            // Volume Grid Lines every 5 mL
+            for (let v = 0; v <= maxVolX; v += 5) {
+                const x = padLeft + (v / maxVolX) * plotW;
+                ctx.strokeStyle = '#1e293b';
+                ctx.beginPath();
+                ctx.moveTo(x, padTop);
+                ctx.lineTo(x, padTop + plotH);
+                ctx.stroke();
+
+                ctx.fillStyle = '#64748b';
+                ctx.font = '10px "JetBrains Mono"';
+                ctx.textAlign = 'center';
+                ctx.fillText(`${v}`, x, padTop + plotH + 15);
+            }
+
+            // Indicator Active Band (e.g. pH 8.2 to 10.0 for Phenolphthalein)
+            let bandLow = 8.2;
+            let bandHigh = 10.0;
+            let bandColor = 'rgba(219, 39, 119, 0.12)';
+
+            if (STATE.indicatorKey === 'bromothymol') {
+                bandLow = 6.0;
+                bandHigh = 7.6;
+                bandColor = 'rgba(16, 185, 129, 0.15)';
+            } else if (STATE.indicatorKey === 'methylOrange') {
+                bandLow = 3.1;
+                bandHigh = 4.4;
+                bandColor = 'rgba(249, 115, 22, 0.15)';
+            }
+
+            const yBandTop = padTop + plotH - (bandHigh / 14.0) * plotH;
+            const yBandBottom = padTop + plotH - (bandLow / 14.0) * plotH;
+            ctx.fillStyle = bandColor;
+            ctx.fillRect(padLeft, yBandTop, plotW, yBandBottom - yBandTop);
+
+            // Theoretical Titration Curve (Faint reference dashed line)
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            for (let v = 0; v <= maxVolX; v += 0.2) {
+                const ph = calculatePH(v);
+                const x = padLeft + (v / maxVolX) * plotW;
+                const y = padTop + plotH - (ph / 14.0) * plotH;
+                if (v === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Empirical Recorded Data Points & Active Curve
+            if (STATE.chartHistory.length > 0) {
+                ctx.strokeStyle = '#38bdf8';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+
+                for (let i = 0; i < STATE.chartHistory.length; i++) {
+                    const pt = STATE.chartHistory[i];
+                    const x = padLeft + (pt.v / maxVolX) * plotW;
+                    const y = padTop + plotH - (pt.ph / 14.0) * plotH;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+
+                // Draw pulsing current dot at latest point
+                const latest = STATE.chartHistory[STATE.chartHistory.length - 1];
+                const curX = padLeft + (latest.v / maxVolX) * plotW;
+                const curY = padTop + plotH - (latest.ph / 14.0) * plotH;
+
+                ctx.fillStyle = '#38bdf8';
+                ctx.shadowColor = '#38bdf8';
+                ctx.shadowBlur = 10;
+                ctx.beginPath();
+                ctx.arc(curX, curY, 4.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            // Equivalence Point Tag
+            const trueEq = sample.expectedTiter25ml * (STATE.aliquotVolume / 25.0);
+            const badgeEq = document.getElementById('badgeEquivalence');
+            if (STATE.dispensedThisTrial >= trueEq - 0.2 && STATE.dispensedThisTrial <= trueEq + 0.2) {
+                badgeEq.textContent = '★ EQUIVALENCE MATCH';
+                badgeEq.className = 'pill-badge pill-emerald';
+            } else if (STATE.dispensedThisTrial > trueEq + 0.2) {
+                badgeEq.textContent = 'PAST EQUIVALENCE';
+                badgeEq.className = 'pill-badge pill-amber';
+            } else {
+                badgeEq.textContent = 'PRE-EQUIVALENCE';
+                badgeEq.className = 'pill-badge pill-cyan';
+            }
+        }
+
+        /* =========================================================================
+           5. TITRATION FLOW CONTROL & DROP DISPENSING
+           ========================================================================= */
+        function addVolumeToFlask(volumeIncrement) {
+            if (STATE.buretteCurrent + volumeIncrement > STATE.buretteMax) {
+                stopAllDispense();
+                showToast('⚠️ Burette is empty! Click "Refill" to continue.', true);
+                return false;
+            }
+
+            STATE.buretteCurrent += volumeIncrement;
+            STATE.dispensedThisTrial += volumeIncrement;
+
+            const newPh = calculatePH(STATE.dispensedThisTrial);
+
+            // Record point to chart history every ~0.1 mL
+            if (STATE.chartHistory.length === 0 ||
+                Math.abs(STATE.chartHistory[STATE.chartHistory.length - 1].v - STATE.dispensedThisTrial) >= 0.08) {
+                STATE.chartHistory.push({ v: STATE.dispensedThisTrial, ph: newPh });
+            }
+
+            // Animate Drop Fall & Splash
+            animateDropFall();
+
+            // Trigger sound
+            playDripSound();
+
+            // Update UI
+            updateApparatusVisuals();
+            return true;
+        }
+
+        function addSingleDrop() {
+            // 1 Standard drop is 0.05 mL
+            addVolumeToFlask(0.05);
+        }
+
+        function addIncrementalVolume(vol) {
+            addVolumeToFlask(vol);
+        }
+
+        function toggleDropwise() {
+            if (STATE.dispenseMode === 'dropwise') {
+                stopAllDispense();
+            } else {
+                stopAllDispense();
+                STATE.dispenseMode = 'dropwise';
+                STATE.isDispensing = true;
+                document.getElementById('btnDropwise').classList.add('active');
+                setStopcockState('OPEN (DROPWISE)', '#34d399');
+
+                // 0.05 mL drop every 250ms = 0.20 mL/s
+                STATE.dispenseInterval = setInterval(() => {
+                    const ok = addVolumeToFlask(0.05);
+                    if (!ok) stopAllDispense();
+                }, 250);
+            }
+        }
+
+        function toggleStream() {
+            if (STATE.dispenseMode === 'stream') {
+                stopAllDispense();
+            } else {
+                stopAllDispense();
+                STATE.dispenseMode = 'stream';
+                STATE.isDispensing = true;
+                document.getElementById('btnStream').classList.add('active');
+                setStopcockState('OPEN (FAST STREAM)', '#f59e0b');
+
+                // 0.10 mL every 100ms = 1.0 mL/s
+                STATE.dispenseInterval = setInterval(() => {
+                    const ok = addVolumeToFlask(0.10);
+                    if (!ok) stopAllDispense();
+                }, 100);
+            }
+        }
+
+        function stopAllDispense() {
+            if (STATE.dispenseInterval) {
+                clearInterval(STATE.dispenseInterval);
+                STATE.dispenseInterval = null;
+            }
+            STATE.dispenseMode = null;
+            STATE.isDispensing = false;
+
+            document.getElementById('btnDropwise').classList.remove('active');
+            document.getElementById('btnStream').classList.remove('active');
+
+            setStopcockState('CLOSED', '#ef4444');
+            playClickSound();
+        }
+
+        function setStopcockState(text, color) {
+            const hud = document.getElementById('hudStopcockState');
+            hud.textContent = text;
+            hud.style.color = color;
+
+            const handle = document.getElementById('svgStopcockHandle');
+            if (text.includes('OPEN')) {
+                handle.setAttribute('transform', 'translate(235, 325) rotate(90)');
+            } else {
+                handle.setAttribute('transform', 'translate(235, 325) rotate(0)');
+            }
+        }
+
+        function refillBurette() {
+            stopAllDispense();
+            STATE.buretteInitial = 0.00;
+            STATE.buretteCurrent = 0.00;
+            document.getElementById('valInitialBurette').innerHTML = `0.00 <span style="font-size:0.7rem;">mL</span>`;
+            updateApparatusVisuals();
+            showToast('🔄 Burette replenished to 0.00 mL with standardized 0.100 M NaOH');
+        }
+
+        /* SVG Droplet & Vortex Splash Animation */
+        function animateDropFall() {
+            const drop = document.getElementById('svgFallingDrop');
+            const ripple = document.getElementById('svgRipple1');
+            const swirlFlash = document.getElementById('swirlFlashCircle');
+
+            drop.setAttribute('opacity', '1');
+            drop.setAttribute('cy', '350');
+
+            let start = null;
+            const duration = 140; // ms
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = (timestamp - start) / duration;
+
+                if (progress < 1) {
+                    const currentY = 350 + progress * 60; // 350 to 410
+                    drop.setAttribute('cy', currentY);
+                    requestAnimationFrame(step);
+                } else {
+                    drop.setAttribute('opacity', '0');
+
+                    // Trigger ripple
+                    ripple.setAttribute('opacity', '0.8');
+                    ripple.setAttribute('rx', '4');
+
+                    // If approaching or past endpoint, trigger temporary pink plume
+                    const curPh = calculatePH(STATE.dispensedThisTrial);
+                    if (STATE.indicatorKey === 'phenolphthalein' && curPh >= 7.8) {
+                        swirlFlash.setAttribute('opacity', '0.7');
+                        swirlFlash.setAttribute('r', '14');
+                        setTimeout(() => {
+                            swirlFlash.setAttribute('opacity', '0');
+                            swirlFlash.setAttribute('r', '0');
+                        }, 400);
+                    }
+
+                    setTimeout(() => {
+                        ripple.setAttribute('opacity', '0');
+                    }, 120);
+                }
+            }
+            requestAnimationFrame(step);
+        }
+
+        /* Magnetic Stirrer Animation Loop */
+        function startStirrerLoop() {
+            const stirBar = document.getElementById('stirBar');
+            const led = document.getElementById('svgStirrerLed');
+
+            function loop() {
+                if (STATE.stirrerSpeed > 0) {
+                    const speedMultiplier = STATE.stirrerSpeed === 1 ? 8 : (STATE.stirrerSpeed === 2 ? 18 : 32);
+                    STATE.stirrerAngle = (STATE.stirrerAngle + speedMultiplier) % 360;
+
+                    stirBar.setAttribute('transform', `rotate(${STATE.stirrerAngle} 235 462)`);
+                    led.setAttribute('fill', '#10b981');
+                } else {
+                    led.setAttribute('fill', '#475569');
+                }
+                STATE.stirrerAnimId = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function setStirrerSpeed(speed) {
+            STATE.stirrerSpeed = speed;
+            ['btnStirOff', 'btnStirLow', 'btnStirMed', 'btnStirHigh'].forEach((id, idx) => {
+                const btn = document.getElementById(id);
+                if (idx === speed) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            playClickSound();
+        }
+
+        /* =========================================================================
+           6. EVENT HANDLERS & RESET
+           ========================================================================= */
+        function onSampleChange() {
+            const select = document.getElementById('waterSampleSelect');
+            STATE.activeSampleKey = select.value;
+            const sample = WATER_SAMPLES[STATE.activeSampleKey];
+
+            document.getElementById('lblLocation').textContent = sample.location;
+            document.getElementById('lblInitialPh').textContent = `~ ${sample.initialPh.toFixed(2)}`;
+            document.getElementById('lblAcidSpecies').textContent = sample.acidSpecies;
+
+            const expLow = (sample.expectedTiter25ml * 0.95).toFixed(1);
+            const expHigh = (sample.expectedTiter25ml * 1.05).toFixed(1);
+            document.getElementById('lblEstimatedVol').textContent = `${expLow} - ${expHigh} mL`;
+
+            resetTitration();
+            updateRemediationCalc();
+            showToast(`Selected Sample: ${sample.name}`);
+        }
+
+        function loadRandomSample() {
+            const keys = Object.keys(WATER_SAMPLES);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            document.getElementById('waterSampleSelect').value = randomKey;
+            onSampleChange();
+        }
+
+        function onIndicatorChange() {
+            STATE.indicatorKey = document.getElementById('indicatorSelect').value;
+            const ind = INDICATORS[STATE.indicatorKey];
+            document.getElementById('lblActiveIndicatorRange').textContent = ind.rangeText;
+            updateApparatusVisuals();
+            showToast(`Active Indicator: ${ind.name} (${ind.rangeText})`);
+        }
+
+        function resetTitration() {
+            stopAllDispense();
+            STATE.aliquotVolume = parseFloat(document.getElementById('aliquotVolSelect').value);
+            STATE.buretteInitial = STATE.buretteCurrent;
+            STATE.dispensedThisTrial = 0.00;
+            STATE.chartHistory = [{ v: 0, ph: calculatePH(0) }];
+
+            document.getElementById('valInitialBurette').innerHTML = `${STATE.buretteInitial.toFixed(2)} <span style="font-size:0.7rem;">mL</span>`;
+            updateApparatusVisuals();
+        }
+
+        /* =========================================================================
+           7. LAB NOTEBOOK & CONCORDANCY STOICHIOMETRY
+           ========================================================================= */
+        function logTrialToNotebook() {
+            if (STATE.dispensedThisTrial < 0.1) {
+                showToast('⚠️ Dispense at least some titrant before recording!', true);
+                return;
+            }
+
+            const initialV = STATE.buretteInitial;
+            const finalV = STATE.buretteCurrent;
+            const titer = STATE.dispensedThisTrial;
+            const curPh = calculatePH(titer);
+            const sample = WATER_SAMPLES[STATE.activeSampleKey];
+            const ind = INDICATORS[STATE.indicatorKey];
+            const observedColor = ind.getColorName(curPh);
+
+            const isRough = STATE.trialNumber === 1;
+
+            const record = {
+                trial: STATE.trialNumber,
+                sampleName: sample.name,
+                sampleKey: STATE.activeSampleKey,
+                aliquot: STATE.aliquotVolume,
+                vInitial: initialV,
+                vFinal: finalV,
+                titer: titer,
+                color: observedColor,
+                isRough: isRough
+            };
+
+            STATE.trialRecords.push(record);
+            STATE.trialNumber++;
+            document.getElementById('trialIndicatorBadge').textContent = `Trial ${STATE.trialNumber}`;
+
+            renderNotebookTable();
+            recalculateStoichiometry();
+
+            showToast(`✅ Trial ${record.trial} recorded (Titer: ${titer.toFixed(2)} mL)`);
+
+            // Automatically prepare next trial: reset dispensed titer, keep burette level
+            resetTitration();
+        }
+
+        function renderNotebookTable() {
+            const tbody = document.getElementById('notebookTableBody');
+            tbody.innerHTML = '';
+
+            if (STATE.trialRecords.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color: var(--text-muted); padding: 1.5rem;">No trial data recorded yet. Return to the Titration Bench to conduct trials!</td></tr>`;
+                return;
+            }
+
+            // Find non-rough trials
+            const validTrials = STATE.trialRecords.filter(r => !r.isRough);
+
+            STATE.trialRecords.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+
+                // Determine concordance status
+                let statusBadge = '';
+                if (r.isRough) {
+                    statusBadge = '<span class="badge-status badge-rough">Rough Trial (Omit)</span>';
+                } else {
+                    // Check if concordant with any other non-rough trial (within +/- 0.10 mL)
+                    const otherTrials = validTrials.filter(o => o.trial !== r.trial);
+                    const isConcordant = otherTrials.some(o => Math.abs(o.titer - r.titer) <= 0.10);
+
+                    if (isConcordant) {
+                        statusBadge = '<span class="badge-status badge-concordant">Concordant (±0.10 mL)</span>';
+                    } else {
+                        statusBadge = '<span class="badge-status badge-divergent">Divergent</span>';
+                    }
+                }
+
+                tr.innerHTML = `
+                    <td><strong>Trial ${r.trial}</strong></td>
+                    <td style="color: #60a5fa;">${r.sampleName}</td>
+                    <td>${r.aliquot.toFixed(2)}</td>
+                    <td>${r.vInitial.toFixed(2)}</td>
+                    <td>${r.vFinal.toFixed(2)}</td>
+                    <td style="font-weight:700; color:#38bdf8;">${r.titer.toFixed(2)}</td>
+                    <td>${r.color}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        <button class="btn-flow" style="padding: 2px 6px; font-size: 0.7rem;" onclick="deleteTrial(${idx})">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deleteTrial(index) {
+            STATE.trialRecords.splice(index, 1);
+            renderNotebookTable();
+            recalculateStoichiometry();
+            showToast('Trial deleted from notebook');
+        }
+
+        function recalculateStoichiometry() {
+            const validTrials = STATE.trialRecords.filter(r => !r.isRough);
+
+            // Find concordant trials (within 0.10 mL of each other)
+            let concordantTrials = [];
+            for (let i = 0; i < validTrials.length; i++) {
+                for (let j = i + 1; j < validTrials.length; j++) {
+                    if (Math.abs(validTrials[i].titer - validTrials[j].titer) <= 0.10) {
+                        if (!concordantTrials.includes(validTrials[i])) concordantTrials.push(validTrials[i]);
+                        if (!concordantTrials.includes(validTrials[j])) concordantTrials.push(validTrials[j]);
+                    }
+                }
+            }
+
+            const meanDisplay = document.getElementById('valMeanConcordant');
+            const res1 = document.getElementById('stepResult1');
+            const res2 = document.getElementById('stepResult2');
+            const res3 = document.getElementById('stepResult3');
+            const res4 = document.getElementById('stepResult4');
+
+            if (concordantTrials.length < 2) {
+                // Fallback to mean of all valid non-rough trials if concordant not yet reached
+                if (validTrials.length > 0) {
+                    const avgTiter = validTrials.reduce((sum, r) => sum + r.titer, 0) / validTrials.length;
+                    meanDisplay.textContent = `${avgTiter.toFixed(2)} mL (Need 2 concordant)`;
+                    meanDisplay.style.color = '#fbbf24';
+                    calculateSteps(avgTiter);
+                } else {
+                    meanDisplay.textContent = '-- mL';
+                    res1.textContent = 'n(NaOH) = -- mol';
+                    res2.textContent = 'n(H⁺) = -- mol';
+                    res3.textContent = '[H⁺] = -- mol·L⁻¹';
+                    res4.textContent = 'Acidity = -- mg/L CaCO₃';
+                }
+                return;
+            }
+
+            const meanTiter = concordantTrials.reduce((sum, r) => sum + r.titer, 0) / concordantTrials.length;
+            meanDisplay.textContent = `${meanTiter.toFixed(2)} mL (Concordant)`;
+            meanDisplay.style.color = '#34d399';
+            calculateSteps(meanTiter);
+        }
+
+        function calculateSteps(meanTiterMl) {
+            const meanLiters = meanTiterMl / 1000.0;
+            const molesBase = STATE.baseMolarity * meanLiters;
+            const molesAcid = molesBase; // 1:1 molar ratio
+            const aliquotLiters = STATE.aliquotVolume / 1000.0;
+            const acidMolarity = molesAcid / aliquotLiters;
+
+            // CaCO3 equivalent: 1 mole CaCO3 neutralizes 2 moles H+
+            // Molar mass of CaCO3 = 100.0869 g/mol
+            // mg/L CaCO3 = (acidMolarity / 2) * 100086.9
+            const caco3EquivMgL = (acidMolarity / 2.0) * 100086.9;
+
+            document.getElementById('stepResult1').textContent = `n(NaOH) = (0.100 mol/L) × (${meanLiters.toFixed(5)} L) = ${molesBase.toExponential(3)} mol`;
+            document.getElementById('stepResult2').textContent = `n(H⁺ neutralized) = ${molesAcid.toExponential(3)} mol (1:1 stoichiometric ratio)`;
+            document.getElementById('stepResult3').textContent = `[H⁺] = ${molesAcid.toExponential(3)} mol ÷ ${aliquotLiters.toFixed(3)} L = ${acidMolarity.toFixed(4)} mol·L⁻¹`;
+            document.getElementById('stepResult4').textContent = `Environmental Acidity = ${caco3EquivMgL.toFixed(1)} mg/L CaCO₃ equivalent`;
+        }
+
+        function exportDataToCSV() {
+            if (STATE.trialRecords.length === 0) {
+                showToast('No data to export!', true);
+                return;
+            }
+
+            let csv = 'Trial,Sample Name,Aliquot Volume (mL),Initial Burette (mL),Final Burette (mL),Titer Dispensed (mL),Endpoint Color,Trial Type\n';
+            STATE.trialRecords.forEach(r => {
+                csv += `${r.trial},"${r.sampleName}",${r.aliquot},${r.vInitial},${r.vFinal},${r.titer},"${r.color}",${r.isRough ? 'Rough' : 'Quantitative'}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `titration_lab_data_${STATE.activeSampleKey}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('📥 CSV data file downloaded successfully');
+        }
+
+        /* =========================================================================
+           8. REMEDIATION & ENVIRONMENTAL RESTORATION MODEL
+           ========================================================================= */
+        function updateRemediationCalc() {
+            const sample = WATER_SAMPLES[STATE.activeSampleKey];
+            const volumeLiters = parseFloat(document.getElementById('remedLakeVolume').value) || 10000;
+
+            // Total moles H+ in reservoir
+            const totalMolesH = sample.titratableAcidity * volumeLiters;
+
+            // CaCO3 + 2H+ -> Ca2+ + H2O + CO2
+            // 1 mol CaCO3 (100.09 g) neutralizes 2 mol H+
+            const molesCaCO3 = totalMolesH / 2.0;
+            const kgCaCO3 = (molesCaCO3 * 100.0869) / 1000.0;
+
+            document.getElementById('lblRemediationLimeNeeded').textContent = `${kgCaCO3.toFixed(1)} kg CaCO₃`;
+        }
+
+        /* =========================================================================
+           9. FORMATIVE INQUIRY QUIZ
+           ========================================================================= */
+        const QUIZ_EXPLANATIONS = {
+            1: "Correct! The rough/screening trial allows students to identify the approximate endpoint rapidly so subsequent trials can be approached drop-by-drop with high precision.",
+            2: "Correct! Parallax error occurs when readings are taken from angles other than directly horizontal to the bottom of the meniscus.",
+            3: "Correct! Near equivalence, unneutralized [H⁺] is virtually zero. Adding 0.05 mL of base introduces excess [OH⁻], creating a massive logarithmic pH jump.",
+            4: "Correct! Conjugate bases of weak environmental acids hydrolyze water to produce OH⁻, placing the equivalence point in the alkaline pH 8.0 - 9.0 range.",
+            5: "Correct! Analytical chemistry standards consider titers within ±0.10 mL concordant."
+        };
+
+        function checkAnswer(qNum, optIdx, isCorrect) {
+            if (STATE.quizAnswered[qNum]) return; // lock once answered
+            STATE.quizAnswered[qNum] = true;
+
+            const qBox = document.getElementById(`qBox${qNum}`);
+            const buttons = qBox.querySelectorAll('.quiz-opt-btn');
+            const feedback = document.getElementById(`qFeedback${qNum}`);
+
+            buttons.forEach((btn, idx) => {
+                btn.classList.add('locked');
+                if (idx === optIdx) {
+                    if (isCorrect) {
+                        btn.classList.add('correct');
+                        STATE.quizScore++;
+                    } else {
+                        btn.classList.add('incorrect');
+                    }
+                }
+            });
+
+            feedback.style.display = 'block';
+            if (isCorrect) {
+                feedback.style.background = 'rgba(16, 185, 129, 0.15)';
+                feedback.style.color = '#34d399';
+                feedback.style.border = '1px solid rgba(16, 185, 129, 0.4)';
+                feedback.textContent = `✅ ${QUIZ_EXPLANATIONS[qNum]}`;
+            } else {
+                feedback.style.background = 'rgba(244, 63, 94, 0.15)';
+                feedback.style.color = '#fb7185';
+                feedback.style.border = '1px solid rgba(244, 63, 94, 0.4)';
+                feedback.textContent = `❌ Incorrect. Scientific evaluation: ${QUIZ_EXPLANATIONS[qNum]}`;
+            }
+
+            document.getElementById('quizScoreBadge').textContent = `Score: ${STATE.quizScore} / 5`;
+            playClickSound();
+        }
+
+        /* =========================================================================
+           10. UI HELPERS & NAVIGATION
+           ========================================================================= */
+        function switchSection(sectionId) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            const target = document.getElementById(sectionId);
+            if (target) target.classList.add('active');
+
+            const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(sectionId));
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (sectionId === 'section-titration') {
+                updateApparatusVisuals();
+            } else if (sectionId === 'section-notebook') {
+                renderNotebookTable();
+                recalculateStoichiometry();
+            }
+        }
+
+        function showToast(message, isWarning = false) {
+            const toast = document.getElementById('toastNotification');
+            const msgElem = document.getElementById('toastMessage');
+            const iconElem = document.getElementById('toastIcon');
+
+            msgElem.textContent = message;
+            iconElem.textContent = isWarning ? '⚠️' : '✨';
+            toast.style.borderColor = isWarning ? '#f43f5e' : '#3b82f6';
+
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function printLabReport() {
+            window.print();
+        }
+
+        /* Window Initialization */
+        window.addEventListener('DOMContentLoaded', () => {
+            initBuretteTicks();
+            startStirrerLoop();
+            onSampleChange();
+            onIndicatorChange();
+            resetTitration();
+            updateRemediationCalc();
+        });
+
+        window.addEventListener('resize', () => {
+            drawChart();
+            drawLoupeView(STATE.buretteCurrent);
+        });
+    </script>
+</body>
+</html>

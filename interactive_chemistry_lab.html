@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB MYP 5 Chemistry: Interactive Learning Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --surface: #151c2e;
+            --surface-hover: #1e293b;
+            --border: #2e3a54;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.35);
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(21, 28, 46, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-group h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-group p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.6rem;
+            background: rgba(11, 15, 25, 0.6);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        main {
+            flex: 1;
+            padding: 2.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .view-panel {
+            display: none;
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.4rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .badge-green { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+        .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .badge-purple { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); }
+
+        /* Module 1: Animated Particle Collision Canvas */
+        .sim-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: #080d1a;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .controls {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.65rem 1.4rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Module 2: Interactive pH Spectrum */
+        .ph-slider-box {
+            margin: 1.5rem 0;
+        }
+
+        .ph-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 18px;
+            border-radius: 9px;
+            background: linear-gradient(to right, 
+                #ef4444 0%, #f97316 20%, #eab308 40%, 
+                #10b981 50%, #06b6d4 70%, #3b82f6 85%, #8b5cf6 100%
+            );
+            outline: none;
+            cursor: pointer;
+        }
+
+        .ph-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #0f172a;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            cursor: grab;
+            transition: transform 0.1s;
+        }
+
+        .ph-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .ph-metric-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: rgba(11, 15, 25, 0.7);
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .ph-value-display {
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+        }
+
+        .ph-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .ph-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .indicator-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator-pill {
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(11, 15, 25, 0.5);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .indicator-pill h5 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .color-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin: 0 auto 6px;
+            border: 2px solid rgba(255,255,255,0.4);
+            transition: background 0.3s ease;
+        }
+
+        /* Module 3: Electron Leap Animation */
+        .atom-stage {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 300px;
+            background: #080d1a;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .atom-node {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: 800;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .zn-atom {
+            background: radial-gradient(circle at 35% 35%, #94a3b8, #475569);
+            color: white;
+            border: 3px solid #cbd5e1;
+        }
+
+        .cu-ion {
+            background: radial-gradient(circle at 35% 35%, #38bdf8, #0369a1);
+            color: white;
+            border: 3px solid #7dd3fc;
+        }
+
+        .electron-particle {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #facc15;
+            box-shadow: 0 0 16px #facc15;
+            z-index: 20;
+            display: none;
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 1.4rem;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        iframe.phet-embed {
+            width: 100%;
+            height: 580px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-group">
+            <h1>IB MYP 5 Integrated Sciences · Interactive Visual Lab</h1>
+            <p>Chemical Models, Periodic Trends & Thermochemical Reaction Kinetics</p>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-neutralization')">⚛️ Neutralization Particles</button>
+            <button class="tab-btn" onclick="switchTab('tab-ph')">🎨 Dynamic pH Spectrum</button>
+            <button class="tab-btn" onclick="switchTab('tab-electron')">⚡ Electron Transfer Leap</button>
+            <button class="tab-btn" onclick="switchTab('tab-phet')">🧪 Embedded PhET Lab</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- TAB 1: NEUTRALIZATION PARTICLES -->
+        <div id="tab-neutralization" class="view-panel active">
+            <div class="panel-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Sub-Microscopic Neutralization Engine</h2>
+                        <span class="badge badge-red">OIS 10.ABC-DS.2</span>
+                    </div>
+                    <div class="sim-canvas-container">
+                        <canvas id="neutralizationCanvas" width="550" height="380"></canvas>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" onclick="injectIons()">💧 Inject H⁺ & OH⁻ Ions</button>
+                        <button class="btn" style="background: #334155;" onclick="clearIons()">🔄 Reset Solution</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Thermochemical Energy Model</h2>
+                        <span class="badge badge-green">ΔH = -57.1 kJ/mol</span>
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>Bond Breaking is Endothermic (ΔH > 0):</strong> Hydration energy is absorbed to disrupt the aqueous solvation shells surrounding H⁺ and OH⁻.</li>
+                        <li><strong>Bond Forming is Exothermic (ΔH < 0):</strong> When H⁺ and OH⁻ collide with sufficient activation energy (Eₐ), a powerful covalent O—H bond snaps together.</li>
+                        <li><strong>Net Enthalpy Release:</strong> Because the newly formed covalent bond is significantly stronger than the broken solvation bonds, excess thermal energy is dumped into surrounding water molecules, raising temperature!</li>
+                    </ul>
+
+                    <div style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(11, 15, 25, 0.7); border-radius: 12px; border: 1px solid var(--border);">
+                        <h4 style="font-size: 0.95rem; color: #60a5fa; margin-bottom: 6px;">Net Ionic Equation</h4>
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 700; color: #f8fafc;">
+                            H⁺(aq) + OH⁻(aq) → H₂O(l)
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Spectator ions (Na⁺, Cl⁻) do not participate in bond breaking or forming!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: DYNAMIC pH SPECTRUM -->
+        <div id="tab-ph" class="view-panel">
+            <div class="panel-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Interactive Logarithmic pH Simulator</h2>
+                        <span class="badge badge-blue">OIS 10.ABC-DS.4</span>
+                    </div>
+                    <div class="ph-slider-box">
+                        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 8px;">
+                            DRAG TO EXPLORE pH (0 to 14):
+                        </label>
+                        <input type="range" min="0" max="14" step="0.1" value="7" class="ph-slider" id="phInput" oninput="updatePH(this.value)">
+                    </div>
+
+                    <div class="ph-metric-card" id="phMetricCard">
+                        <div class="ph-details">
+                            <h4 id="substanceName">Pure Neutral Water</h4>
+                            <p id="ionRatio">[H⁺] = 10⁻⁷ mol/dm³ | Neutral Homeostasis</p>
+                        </div>
+                        <div class="ph-value-display" id="phNumber">7.0</div>
+                    </div>
+
+                    <div class="indicator-row">
+                        <div class="indicator-pill">
+                            <h5>LITMUS</h5>
+                            <div class="color-dot" id="litmusDot"></div>
+                            <span id="litmusText" style="font-size: 0.8rem; font-weight: 700;">Purple</span>
+                        </div>
+                        <div class="indicator-pill">
+                            <h5>PHENOLPHTHALEIN</h5>
+                            <div class="color-dot" id="phenolDot"></div>
+                            <span id="phenolText" style="font-size: 0.8rem; font-weight: 700;">Colorless</span>
+                        </div>
+                        <div class="indicator-pill">
+                            <h5>METHYL ORANGE</h5>
+                            <div class="color-dot" id="methylDot"></div>
+                            <span id="methylText" style="font-size: 0.8rem; font-weight: 700;">Yellow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Mathematical 10× Rule & Biology</h2>
+                        <span class="badge badge-amber">Logarithmic Scale</span>
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>pH is Logarithmic:</strong> pH = -log₁₀[H⁺]. Every 1-unit shift is a <strong>TEN-FOLD (10×)</strong> change in free hydrogen ion concentration.</li>
+                        <li><strong>Stomach Acid vs Water:</strong> pH 1 gastric juice has <strong>1,000,000×</strong> more H⁺ ions per cm³ than pH 7 water!</li>
+                        <li><strong>Human Blood Homeostasis:</strong> Human arterial blood is tightly buffered at pH 7.35 – 7.45. A drop below 7.2 causes fatal acidosis.</li>
+                        <li><strong>Duodenal Defense:</strong> The pancreas rapidly neutralizes gastric chyme from pH 1.5 to 8.0 via sodium bicarbonate (NaHCO₃).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: ELECTRON LEAP ANIMATION -->
+        <div id="tab-electron" class="view-panel">
+            <div class="panel-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Single Displacement Electron Leap</h2>
+                        <span class="badge badge-purple">OIS 10.ABC-DS.1</span>
+                    </div>
+                    <div class="atom-stage" id="atomStage">
+                        <div class="atom-node zn-atom" id="znAtom">
+                            <span>Zn(s)</span>
+                            <small style="font-size: 0.7rem; font-weight: normal;">Solid Atom</small>
+                        </div>
+                        <div class="electron-particle" id="electron1"></div>
+                        <div class="electron-particle" id="electron2"></div>
+                        <div class="atom-node cu-ion" id="cuAtom">
+                            <span>Cu²⁺</span>
+                            <small style="font-size: 0.7rem; font-weight: normal;">Aqueous Ion</small>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn" onclick="animateElectronTransfer()">⚡ Trigger 2e⁻ Electron Leap</button>
+                        <button class="btn" style="background: #334155;" onclick="resetAtoms()">🔄 Reset Atoms</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">The Sub-Microscopic Redox Mechanism</h2>
+                        <span class="badge badge-blue">Reactivity Series</span>
+                    </div>
+                    <ul class="info-list">
+                        <li><strong>Oxidation at the Metal Surface:</strong> Zinc has a lower first and second ionization energy than copper. Zn loses its 2 valence electrons: Zn(s) → Zn²⁺(aq) + 2e⁻.</li>
+                        <li><strong>Reduction of Cations:</strong> Dissolved Cu²⁺ ions accept these 2 electrons, discharging their blue color and depositing as brown solid copper: Cu²⁺(aq) + 2e⁻ → Cu(s).</li>
+                        <li><strong>Spectator Sulfate:</strong> SO₄²⁻ ions remain unchanged in aqueous solution.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: EMBEDDED PHET LAB -->
+        <div id="tab-phet" class="view-panel">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Live PhET Laboratory: Acid-Base Solutions</h2>
+                    <span class="badge badge-green">Interactive Simulation</span>
+                </div>
+                <iframe class="phet-embed" src="https://phet.colorado.edu/sims/html/acid-base-solutions/latest/acid-base-solutions_en.html" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        /* --- MODULE 1: PARTICLE SIMULATION --- */
+        const canvas = document.getElementById('neutralizationCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animId;
+
+        class Particle {
+            constructor(type) {
+                this.type = type; // 'H', 'OH', 'H2O'
+                this.x = Math.random() * (canvas.width - 40) + 20;
+                this.y = Math.random() * (canvas.height - 40) + 20;
+                this.vx = (Math.random() - 0.5) * 2.5;
+                this.vy = (Math.random() - 0.5) * 2.5;
+                this.radius = type === 'H' ? 12 : (type === 'OH' ? 18 : 22);
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                if (this.type === 'H') {
+                    ctx.fillStyle = '#ef4444';
+                    ctx.fill();
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 11px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('H⁺', this.x, this.y);
+                } else if (this.type === 'OH') {
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.fill();
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 11px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('OH⁻', this.x, this.y);
+                } else {
+                    ctx.fillStyle = '#10b981';
+                    ctx.fill();
+                    ctx.fillStyle = 'white';
+                    ctx.font = 'bold 10px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('H₂O', this.x, this.y);
+                }
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) this.vx *= -1;
+                if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) this.vy *= -1;
+            }
+        }
+
+        function injectIons() {
+            for (let i = 0; i < 6; i++) {
+                particles.push(new Particle('H'));
+                particles.push(new Particle('OH'));
+            }
+        }
+
+        function clearIons() {
+            particles = [];
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Collision check H+ and OH-
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p1 = particles[i];
+                    let p2 = particles[j];
+
+                    if ((p1.type === 'H' && p2.type === 'OH') || (p1.type === 'OH' && p2.type === 'H')) {
+                        let dx = p1.x - p2.x;
+                        let dy = p1.y - p2.y;
+                        let dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < p1.radius + p2.radius) {
+                            // Neutralize! Form H2O
+                            p1.type = 'H2O';
+                            p1.radius = 20;
+                            particles.splice(j, 1);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+        /* --- MODULE 2: DYNAMIC pH SPECTRUM --- */
+        const benchmarks = {
+            0: { name: "Battery Acid (Concentrated H₂SO₄)", ratio: "[H⁺] = 1.0 mol/dm³" },
+            1: { name: "Gastric Juice (Stomach Acid)", ratio: "[H⁺] = 0.1 mol/dm³" },
+            2: { name: "Lemon Juice", ratio: "[H⁺] = 0.01 mol/dm³" },
+            3: { name: "Vinegar (CH₃COOH)", ratio: "[H⁺] = 0.001 mol/dm³" },
+            5: { name: "Black Coffee", ratio: "[H⁺] = 10⁻⁵ mol/dm³" },
+            7: { name: "Pure Neutral Water", ratio: "[H⁺] = [OH⁻] = 10⁻⁷ mol/dm³" },
+            7.4: { name: "Human Blood (Homeostatic)", ratio: "[H⁺] = 4 × 10⁻⁸ mol/dm³" },
+            9: { name: "Baking Soda (NaHCO₃)", ratio: "[OH⁻] > [H⁺]" },
+            11.5: { name: "Household Ammonia Solution", ratio: "[OH⁻] = 3 × 10⁻³ mol/dm³" },
+            13: { name: "Bleach (Sodium Hypochlorite)", ratio: "[OH⁻] = 0.1 mol/dm³" },
+            14: { name: "Drain Cleaner (1.0 M NaOH)", ratio: "[OH⁻] = 1.0 mol/dm³" }
+        };
+
+        function updatePH(val) {
+            val = parseFloat(val);
+            document.getElementById('phNumber').innerText = val.toFixed(1);
+
+            // Find closest benchmark
+            let closest = Object.keys(benchmarks).reduce((prev, curr) => 
+                Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
+            );
+            document.getElementById('substanceName').innerText = benchmarks[closest].name;
+            document.getElementById('ionRatio').innerText = benchmarks[closest].ratio;
+
+            // Update Indicators
+            // 1. Litmus (Red < 4.5, Blue > 8.3, Purple between)
+            let litmusColor = val < 5 ? '#ef4444' : (val > 8 ? '#3b82f6' : '#8b5cf6');
+            let litmusLabel = val < 5 ? 'Red' : (val > 8 ? 'Blue' : 'Purple');
+            document.getElementById('litmusDot').style.background = litmusColor;
+            document.getElementById('litmusText').innerText = litmusLabel;
+
+            // 2. Phenolphthalein (Colorless < 8.2, Pink > 8.2)
+            let phenolColor = val >= 8.2 ? '#ec4899' : 'transparent';
+            let phenolLabel = val >= 8.2 ? 'Faint Pink' : 'Colorless';
+            document.getElementById('phenolDot').style.background = phenolColor;
+            document.getElementById('phenolText').innerText = phenolLabel;
+
+            // 3. Methyl Orange (Red < 3.1, Yellow > 4.4, Orange between)
+            let methylColor = val < 3.1 ? '#ef4444' : (val > 4.4 ? '#eab308' : '#f97316');
+            let methylLabel = val < 3.1 ? 'Red' : (val > 4.4 ? 'Yellow' : 'Orange');
+            document.getElementById('methylDot').style.background = methylColor;
+            document.getElementById('methylText').innerText = methylLabel;
+        }
+
+        /* --- MODULE 3: ELECTRON LEAP ANIMATION --- */
+        function animateElectronTransfer() {
+            const e1 = document.getElementById('electron1');
+            const e2 = document.getElementById('electron2');
+            const zn = document.getElementById('znAtom');
+            const cu = document.getElementById('cuAtom');
+
+            e1.style.display = 'block';
+            e2.style.display = 'block';
+
+            e1.style.left = '32%';
+            e1.style.top = '45%';
+            e2.style.left = '32%';
+            e2.style.top = '55%';
+
+            setTimeout(() => {
+                e1.style.transition = 'all 1.2s cubic-bezier(0.25, 1, 0.5, 1)';
+                e2.style.transition = 'all 1.2s cubic-bezier(0.25, 1, 0.5, 1)';
+                e1.style.left = '64%';
+                e1.style.top = '45%';
+                e2.style.left = '64%';
+                e2.style.top = '55%';
+            }, 50);
+
+            setTimeout(() => {
+                // Change Zn to Zn2+
+                zn.style.background = 'radial-gradient(circle at 35% 35%, #38bdf8, #0369a1)';
+                zn.querySelector('span').innerText = 'Zn²⁺';
+                zn.querySelector('small').innerText = 'Dissolving Ion';
+
+                // Change Cu2+ to Cu(s) brown solid
+                cu.style.background = 'radial-gradient(circle at 35% 35%, #b45309, #78350f)';
+                cu.querySelector('span').innerText = 'Cu(s)';
+                cu.querySelector('small').innerText = 'Solid Copper Deposit';
+
+                e1.style.display = 'none';
+                e2.style.display = 'none';
+            }, 1300);
+        }
+
+        function resetAtoms() {
+            const zn = document.getElementById('znAtom');
+            const cu = document.getElementById('cuAtom');
+            zn.style.background = 'radial-gradient(circle at 35% 35%, #94a3b8, #475569)';
+            zn.querySelector('span').innerText = 'Zn(s)';
+            zn.querySelector('small').innerText = 'Solid Atom';
+
+            cu.style.background = 'radial-gradient(circle at 35% 35%, #38bdf8, #0369a1)';
+            cu.querySelector('span').innerText = 'Cu²⁺';
+            cu.querySelector('small').innerText = 'Aqueous Ion';
+        }
+    </script>
+</body>
+</html>

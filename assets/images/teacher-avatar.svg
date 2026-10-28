@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-ayushi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="skin-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8cfa4" />
+      <stop offset="100%" stop-color="#e8b98b" />
+    </linearGradient>
+    <linearGradient id="hair-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b24" />
+      <stop offset="100%" stop-color="#0f0e13" />
+    </linearGradient>
+    <linearGradient id="blazer-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Base Circle -->
+  <circle cx="200" cy="200" r="190" fill="url(#bg-grad-ayushi)" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.4" />
+
+  <!-- Atomic & Solid State Orbits (ZnO nanostructure & quantum inspired) -->
+  <ellipse cx="200" cy="200" rx="165" ry="62" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.35" transform="rotate(-30 200 200)" />
+  <ellipse cx="200" cy="200" rx="165" ry="62" fill="none" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.35" transform="rotate(35 200 200)" />
+  
+  <!-- Glowing Nanostructure Nodes -->
+  <circle cx="75" cy="145" r="4.5" fill="#38bdf8" filter="url(#neon-glow)" />
+  <circle cx="330" cy="255" r="5" fill="#f43f5e" filter="url(#neon-glow)" />
+  <circle cx="310" cy="115" r="4" fill="#34d399" filter="url(#neon-glow)" />
+  <circle cx="95" cy="285" r="4" fill="#fbbf24" filter="url(#neon-glow)" />
+
+  <!-- Shoulders & Professional Outfit -->
+  <path d="M 85 390 C 95 300, 135 265, 200 265 C 265 265, 305 300, 315 390 Z" fill="url(#blazer-grad)" />
+  
+  <!-- Inner Blouse / Top (Elegant teal-navy) -->
+  <path d="M 170 262 L 200 325 L 230 262 Z" fill="#0284c7" opacity="0.85" />
+  <polygon points="178,260 200,305 222,260 208,255 200,270 192,255" fill="#f8fafc" />
+
+  <!-- Blazer Lapels -->
+  <path d="M 150 270 L 195 355 L 180 360 L 135 300 Z" fill="#4338ca" />
+  <path d="M 250 270 L 205 355 L 220 360 L 265 300 Z" fill="#4338ca" />
+
+  <!-- Neck -->
+  <rect x="184" y="210" width="32" height="48" rx="8" fill="url(#skin-grad)" />
+
+  <!-- Long Hair Behind Shoulders -->
+  <path d="M 130 180 C 120 240, 125 310, 145 350 C 135 300, 132 230, 142 180 Z" fill="url(#hair-grad)" />
+  <path d="M 270 180 C 280 240, 275 310, 255 350 C 265 300, 268 230, 258 180 Z" fill="url(#hair-grad)" />
+
+  <!-- Head & Face -->
+  <ellipse cx="200" cy="180" rx="52" ry="64" fill="url(#skin-grad)" />
+
+  <!-- Hair Frame (Dark sleek hair parted in center, gracefully framing face) -->
+  <path d="M 142 165 C 136 120, 165 92, 200 92 C 235 92, 264 120, 258 165 C 254 135, 235 110, 200 114 C 165 110, 146 135, 142 165 Z" fill="url(#hair-grad)" />
+  <path d="M 144 165 C 140 200, 144 240, 150 260 C 144 235, 142 195, 145 165 Z" fill="url(#hair-grad)" />
+  <path d="M 256 165 C 260 200, 256 240, 250 260 C 256 235, 258 195, 255 165 Z" fill="url(#hair-grad)" />
+
+  <!-- Eyebrows (Neat, gently curved) -->
+  <path d="M 166 156 Q 178 151 190 155" fill="none" stroke="#262626" stroke-width="2.6" stroke-linecap="round" />
+  <path d="M 210 155 Q 222 151 234 156" fill="none" stroke="#262626" stroke-width="2.6" stroke-linecap="round" />
+
+  <!-- Eyes -->
+  <ellipse cx="178" cy="168" rx="6" ry="4.5" fill="#1e1b18" />
+  <circle cx="179.5" cy="166.5" r="1.6" fill="#ffffff" />
+  <ellipse cx="222" cy="168" rx="6" ry="4.5" fill="#1e1b18" />
+  <circle cx="223.5" cy="166.5" r="1.6" fill="#ffffff" />
+
+  <!-- Stylish Rectangular-Oval Eyeglasses (Black frames like in resume photo) -->
+  <rect x="160" y="156" width="37" height="24" rx="8" fill="none" stroke="#0f172a" stroke-width="2.8" />
+  <rect x="203" y="156" width="37" height="24" rx="8" fill="none" stroke="#0f172a" stroke-width="2.8" />
+  <!-- Bridge -->
+  <line x1="197" y1="166" x2="203" y2="166" stroke="#0f172a" stroke-width="2.8" />
+  <!-- Temples -->
+  <line x1="160" y1="164" x2="148" y2="160" stroke="#0f172a" stroke-width="2.5" />
+  <line x1="240" y1="164" x2="252" y2="160" stroke="#0f172a" stroke-width="2.5" />
+  <!-- Glass Reflection Sheen -->
+  <line x1="164" y1="160" x2="175" y2="174" stroke="#ffffff" stroke-width="1.2" opacity="0.5" stroke-linecap="round" />
+  <line x1="207" y1="160" x2="218" y2="174" stroke="#ffffff" stroke-width="1.2" opacity="0.5" stroke-linecap="round" />
+
+  <!-- Nose -->
+  <path d="M 200 168 L 198 186 L 204 188" fill="none" stroke="#c28e5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Warm, confident smile -->
+  <path d="M 186 206 Q 200 217 214 206" fill="none" stroke="#b91c1c" stroke-width="2.8" stroke-linecap="round" />
+
+  <!-- Subtle physics/nanotech equations watermark -->
+  <g opacity="0.55" font-family="monospace" font-size="10.5" fill="#38bdf8">
+    <text x="245" y="328">ZnO / 3.37 eV</text>
+    <text x="50" y="320">∇ × B = μ₀J</text>
+  </g>
+</svg>

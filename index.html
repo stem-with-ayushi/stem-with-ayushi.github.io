@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayushi Singh — Physics Teacher &amp; Researcher Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- ───── Particle Canvas ───── -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ───── Navigation ───── -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <span class="logo-icon">⚛</span>
+      <span class="logo-text">Ayushi Singh</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#curriculum">Curricula</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#conferences">Conferences</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ───── Hero Section ───── -->
+  <header class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">Ayushi<br /><span class="highlight">Singh</span></h1>
+        <p class="hero-tagline">Physics Teacher &amp; Researcher · IB-MYP &amp; Senior Secondary Educator</p>
+        <p class="hero-sub">A passionate Physics professional with 4.5+ years of experience across premier international schools. Avid researcher in Superconductivity, Condensed Matter Physics, and Metamaterials — bridging scientific inquiry with interactive, Bloom's Taxonomy-based pedagogy.</p>
+        <div class="hero-btns">
+          <a href="#experience" class="btn btn-primary">Teaching &amp; Research</a>
+          <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="4.5" data-decimals="1" data-suffix="+">0</span>
+            <span class="stat-label">Years Teaching</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="1" data-prefix="Rank ">0</span>
+            <span class="stat-label">Delhi University</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="85" data-suffix="% (DU)">0</span>
+            <span class="stat-label">B.Sc. Honors</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="100" data-suffix="% Certified">0</span>
+            <span class="stat-label">MIE Educator</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="avatar-ring">
+          <img src="assets/images/teacher-avatar.svg" alt="Ayushi Singh - Physics Teacher &amp; Researcher" />
+        </div>
+        <!-- Floating formulas & research topics -->
+        <div class="floating-formula f1">ZnO Nanostructure</div>
+        <div class="floating-formula f2">∇ × B = μ₀J</div>
+        <div class="floating-formula f3">Tc (Superconductivity)</div>
+        <div class="floating-formula f4">Bloom's Taxonomy</div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-indicator" aria-label="Scroll down">
+      <span class="scroll-arrow"></span>
+    </a>
+  </header>
+
+  <!-- ───── About Section ───── -->
+  <section class="section about" id="about">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">01</span> About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I am a passionate Physics educator with over <strong>4.5 years of experience</strong> teaching diverse curricula at the senior secondary level and in renowned international institutions, including <strong>Lancers International School</strong> (Gurugram) and <strong>The Shriram School, Aravali</strong>.</p>
+          <p>My academic foundation is built on scientific rigor and excellence. I secured <strong>Rank 1 in Delhi University</strong> during my Bachelor's degree (85%), followed by a Master of Science in Physics from <strong>Osmania University (79%)</strong> with a specialization in <strong>Solid State Physics</strong>, focusing on the synthesis and characterisation of Zinc Oxide (ZnO) nanostructures.</p>
+          <p>As a researcher, I have contributed to advanced research on <strong>Metamaterials characterisation under DMDE (DRDO)</strong> and published climate-impact correlation models in the Delhi University journal. In the classroom, I integrate <strong>ICT tools, Bloom's Taxonomy, and inquiry-led experiments</strong> to guide students from foundational wonder to analytical mastery.</p>
+          <p>I also serve as a <strong>Community Project Supervisor</strong> and <strong>Climate Action Project Supervisor</strong>, mentoring students to apply physical principles toward sustainable real-world solutions.</p>
+        </div>
+        <div class="about-details">
+          <div class="detail-card award-highlight">
+            <span class="detail-icon">🎓</span>
+            <h3>Academic Credentials</h3>
+            <ul>
+              <li><strong>Master of Science (Physics)</strong> — Osmania University (2015 – 2017) | <strong>79%</strong>
+                <br /><small style="color:var(--text-muted);">Specialization: Solid State Physics · Thesis on ZnO Nanostructures</small>
+              </li>
+              <li><strong>Bachelor of Science (Physical Sciences)</strong> — University of Delhi (2012 – 2015) | <strong>85%</strong>
+                <br /><small style="color:var(--accent-cyan);">★ Rank 1, Delhi University (Bachelors Programme)</small>
+                <br /><small style="color:var(--text-muted);">Physics, Chemistry, Mathematics &amp; Computational Modeling</small>
+              </li>
+            </ul>
+          </div>
+          <div class="detail-card">
+            <span class="detail-icon">📜</span>
+            <h3>Professional Recognitions</h3>
+            <ul>
+              <li><strong>Certified Microsoft Innovative Educator (MIE)</strong></li>
+              <li><strong>Undergraduate Researcher Award</strong> — Delhi University</li>
+              <li><strong>IB-MYP Science Educator</strong> (Years 1, 3, 4, 5)</li>
+              <li><strong>Teach Meet 2022 Certified</strong>: IB Internal &amp; Summative Assessment</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Teaching Experience ───── -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">02</span> Work &amp; Teaching Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">10/2021 – Present</span>
+            <h3>MYP Physics Teacher</h3>
+            <p class="timeline-place">Lancers International School, Gurugram, Haryana</p>
+            <p>Undertake MYP Science curriculum delivery for Years 1, 3, 4, and 5. Drive conceptual understanding through hands-on laboratory experiments, scientific inquiry, and formative/summative criterion assessments.</p>
+            <div class="subject-tags" style="margin-top:12px;">
+              <span>Community Project Supervisor</span>
+              <span>Climate Action Project Supervisor</span>
+              <span>IB-MYP Science</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">08/2020 – 08/2021</span>
+            <h3>Physics Teacher</h3>
+            <p class="timeline-place">The Shriram School, Aravali, Gurugram / New Delhi</p>
+            <p>Delivered Physics as a major discipline to senior secondary students. Prepared comprehensive digital lesson plans, interactive PowerPoint presentations, and created an engaging, healthy online learning experience throughout remote instruction.</p>
+            <div class="subject-tags" style="margin-top:12px;">
+              <span>Senior Secondary Physics</span>
+              <span>Digital Pedagogy</span>
+              <span>Interactive Simulations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">08/2019 – Present</span>
+            <h3>Physics Teacher (Part Time)</h3>
+            <p class="timeline-place">Johnson Academy, Hyderabad, India</p>
+            <p>Specialized academy training students for advanced Physics, Mathematics, and competitive problem-solving. Fostering rigorous conceptual depth and analytical aptitude.</p>
+            <div class="subject-tags" style="margin-top:12px;">
+              <span>Advanced Physics</span>
+              <span>Competitive Prep</span>
+              <span>Problem Solving</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">01/2018 – 08/2020</span>
+            <h3>Secondary Physics Educator</h3>
+            <p class="timeline-place">Johnson Grammar School, Habsiguda, Hyderabad</p>
+            <p>Delivered Physics to secondary school classes utilizing ICT tools, interactive demonstrations, and structured formative assessments. Prepared question papers and lesson plans structured strictly on Bloom's Taxonomy, with thorough post-evaluation data analysis to guide student remediation.</p>
+            <div class="subject-tags" style="margin-top:12px;">
+              <span>Bloom's Taxonomy</span>
+              <span>ICT Tools</span>
+              <span>Assessment Analysis</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">06/2017 – 04/2018</span>
+            <h3>Secondary Physics Educator</h3>
+            <p class="timeline-place">Sri Chaitanya Techno School, Ramanthapur, Hyderabad</p>
+            <p>Delivered advanced techno curriculum to secondary students. Focused on excellent conceptual delivery with innovative applications, training students for state-level and country-level competitive physics examinations.</p>
+            <div class="subject-tags" style="margin-top:12px;">
+              <span>Techno Curriculum</span>
+              <span>State &amp; National Exams</span>
+              <span>Applied Mechanics</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Research & Publications ───── -->
+  <section class="section research-section" id="research">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">03</span> Research &amp; Publications</h2>
+      <p style="text-align:center; max-width:700px; margin:-30px auto 48px; color:var(--text-secondary); font-size:.95rem;">
+        An avid researcher combining experimental material science with computational physics, environmental modeling, and defense applications.
+      </p>
+
+      <div class="research-grid">
+        <div class="research-card">
+          <span class="research-badge badge-drdo">Defense Research</span>
+          <h3>Metamaterials &amp; Characterisation</h3>
+          <p class="research-org">DMDE — Defence Research and Development Organisation (DRDO)</p>
+          <p class="research-desc">
+            Investigated electromagnetic metamaterials and their specialized physical characterisation under DMDE (DRDO), exploring unnatural refractive properties and wave manipulation for advanced technological applications.
+          </p>
+          <div class="research-tags">
+            <span>Metamaterials</span>
+            <span>Electromagnetic Waves</span>
+            <span>DRDO</span>
+            <span>Characterisation</span>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <span class="research-badge badge-msc">Master's Thesis</span>
+          <h3>Synthesis &amp; Characterisation of ZnO Nanostructure</h3>
+          <p class="research-org">Department of Physics, Osmania University</p>
+          <p class="research-desc">
+            Synthesized Zinc Oxide (ZnO) nanostructures and analyzed their structural, optical, and morphological characteristics in the domain of Solid State &amp; Condensed Matter Physics, investigating optoelectronic properties and wide bandgap behavior.
+          </p>
+          <div class="research-tags">
+            <span>ZnO Nanostructures</span>
+            <span>Solid State Physics</span>
+            <span>Condensed Matter</span>
+            <span>XRD / SEM</span>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <span class="research-badge badge-du">Published Paper</span>
+          <h3>Prediction of the Crop Yield</h3>
+          <p class="research-org">Delhi University Journal (DU Journal)</p>
+          <p class="research-desc">
+            Multivariable correlation and regression analysis modeling crop yield across 10 major districts of Uttar Pradesh based on physical parameters: temperature, precipitation variations, and greenhouse gas emissions to improve climate-resilient yield predictions.
+          </p>
+          <div class="research-tags">
+            <span>Climate Modeling</span>
+            <span>Regression Analysis</span>
+            <span>Statistical Physics</span>
+            <span>DU Journal</span>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <span class="research-badge">Innovation Project</span>
+          <h3>Industrial Interface &amp; Innovation Research</h3>
+          <p class="research-org">"Antardhvani", New Delhi (Delhi University)</p>
+          <p class="research-desc">
+            Selected for the innovation research presentation at the prestigious "Antardhvani" industrial interface conference in New Delhi, demonstrating practical industrial utility and translation of university research outcomes.
+          </p>
+          <div class="research-tags">
+            <span>Antardhvani</span>
+            <span>Innovation Research</span>
+            <span>Industrial Interface</span>
+            <span>Delhi University</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Curricula & Courses ───── -->
+  <section class="section subjects" id="curriculum">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">04</span> Curricula &amp; Teaching Disciplines</h2>
+      <div class="subjects-grid">
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>IB-MYP Science (Physics)</h3>
+            <span class="badge">Years 1, 3, 4, 5</span>
+          </div>
+          <p>Inquiry-based science curriculum fostering critical thinking, criterion-based assessments (A, B, C, D), scientific reporting, and experimental design for middle years learners.</p>
+          <div class="subject-tags">
+            <span>Inquiry-Based</span><span>Criterion Grading</span><span>Lab Investigation</span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>Senior Secondary Physics</h3>
+            <span class="badge badge-mid">Classes 11 &amp; 12</span>
+          </div>
+          <p>Delivered Physics as a major discipline covering Classical Mechanics, Electromagnetism, Optics, Thermodynamics, and Modern Physics with conceptual clarity and exam preparation.</p>
+          <div class="subject-tags">
+            <span>Mechanics</span><span>Electromagnetism</span><span>Optics</span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>Solid State &amp; Modern Physics</h3>
+            <span class="badge">Specialization</span>
+          </div>
+          <p>Advanced conceptual modules exploring crystal structures, semiconductors, band theory, nanostructures, superconductivity, and quantum physics foundations.</p>
+          <div class="subject-tags">
+            <span>ZnO Nanotech</span><span>Superconductivity</span><span>Band Theory</span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>Climate Action &amp; Community</h3>
+            <span class="badge badge-intro">Supervision</span>
+          </div>
+          <p>Mentoring students through real-world community and environmental projects: linking physical energy concepts, emissions, and ecological impact with actionable local initiatives.</p>
+          <div class="subject-tags">
+            <span>Climate Action</span><span>Community Projects</span><span>Sustainability</span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>Competitive Techno Curriculum</h3>
+            <span class="badge badge-mid">Advanced Prep</span>
+          </div>
+          <p>High-aptitude training for state and national level examinations with challenging problem sets, multi-concept questions, and speed-accuracy problem-solving techniques.</p>
+          <div class="subject-tags">
+            <span>Competitive Exams</span><span>Advanced Math</span><span>Techno Physics</span>
+          </div>
+        </div>
+
+        <div class="subject-card">
+          <div class="subject-header">
+            <h3>ICT-Driven Digital Labs &amp; Simulations</h3>
+            <span class="badge badge-intro">EdTech</span>
+          </div>
+          <p>Integrating modern ICT tools, digital simulations, interactive titration laboratories, automated assessment feedback, and inquiry-based visualization to maximize student engagement.</p>
+          <div class="subject-tags" style="margin-bottom: 0.8rem;">
+            <span>MIE Certified</span><span>Digital Sims</span><span>Bloom's Taxonomy</span>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.6rem;">
+            <a href="water_titration_lab.html" target="_blank" class="btn btn-primary" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;">🧪 Launch Water Titration Lab</a>
+            <a href="interactive_chemistry_lab.html" target="_blank" class="btn btn-outline" style="padding: 0.45rem 0.85rem; font-size: 0.8rem;">⚛️ Chemistry Models Suite</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Skills & Pedagogy Matrix ───── -->
+  <section class="section skills-section" id="skills">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">05</span> Skills &amp; Competencies</h2>
+      <div class="skills-grid">
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">👩‍🏫</span>
+            <h3>Pedagogical Expertise</h3>
+          </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill featured">Physics Concept Delivery</span>
+            <span class="skill-pill featured">Bloom's Taxonomy</span>
+            <span class="skill-pill">IB-MYP Science</span>
+            <span class="skill-pill">Senior Secondary Physics</span>
+            <span class="skill-pill">Lesson Plan Architecture</span>
+            <span class="skill-pill">Formative &amp; Summative Evaluation</span>
+            <span class="skill-pill">Post-Assessment Error Analysis</span>
+            <span class="skill-pill">Community Project Supervision</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">💻</span>
+            <h3>Educational Technology &amp; ICT</h3>
+          </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill featured">Certified MIE Educator</span>
+            <span class="skill-pill">ICT Tool Integration</span>
+            <span class="skill-pill">Interactive PowerPoint</span>
+            <span class="skill-pill">Turnitin Plagiarism Review</span>
+            <span class="skill-pill">Virtual Physics Laboratories</span>
+            <span class="skill-pill">Online Learning Platforms</span>
+            <span class="skill-pill">Digital Poster Design</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">🔬</span>
+            <h3>Scientific &amp; Computational</h3>
+          </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill featured">MATLAB</span>
+            <span class="skill-pill featured">SPSS Statistical Analysis</span>
+            <span class="skill-pill">C Language Programming</span>
+            <span class="skill-pill">Visual Basic &amp; Database</span>
+            <span class="skill-pill">Regression &amp; Correlation Modeling</span>
+            <span class="skill-pill">Material Characterisation</span>
+            <span class="skill-pill">Experimental Data Analysis</span>
+          </div>
+        </div>
+
+        <div class="skill-category-card">
+          <div class="skill-cat-header">
+            <span class="skill-cat-icon">🌟</span>
+            <h3>Soft Skills &amp; Leadership</h3>
+          </div>
+          <div class="skill-pill-list">
+            <span class="skill-pill featured">Pollyannaish (Optimistic &amp; Uplifting)</span>
+            <span class="skill-pill">Effective Communication</span>
+            <span class="skill-pill">Creative Problem Solving</span>
+            <span class="skill-pill">Adaptability</span>
+            <span class="skill-pill">Self-Motivated Researcher</span>
+            <span class="skill-pill">Student Mentorship &amp; Empathy</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Conferences & Courses ───── -->
+  <section class="section conferences" id="conferences">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">06</span> Conferences, Courses &amp; Honors</h2>
+      <div class="achievements-grid">
+
+        <div class="achievement-card award-highlight">
+          <div class="achievement-icon">🏆</div>
+          <h3>Rank 1, Delhi University</h3>
+          <p class="achievement-year">2015 · Academic Honor</p>
+          <p>Awarded Rank 1 across Delhi University in the Bachelor of Science (Physical Sciences) programme with an 85% aggregate score.</p>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-icon">🛰️</div>
+          <h3>ISRO World Space Week</h3>
+          <p class="achievement-year">06/2016 · Hyderabad</p>
+          <p>Conducted by the Indian Space Research Organisation (ISRO) and astronomy organisation "Spaceadhyaan".</p>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-icon">🚀</div>
+          <h3>IIST National Conference</h3>
+          <p class="achievement-year">08/2017 · Trivandrum</p>
+          <p>Indian Institute of Space Science and Technology (IIST) National Conference on advanced space physics and technology.</p>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-icon">🧪</div>
+          <h3>Material Characterization Workshop</h3>
+          <p class="achievement-year">10/2016 · Hyderabad</p>
+          <p>National workshop focusing on structural, spectral, and optical characterisation techniques for advanced nanomaterials.</p>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-icon">📋</div>
+          <h3>Teach Meet 2022 (IB-MYP)</h3>
+          <p class="achievement-year">02/2022 · Professional Course</p>
+          <p>Intensive workshop on strategies to excel in internal and summative assessments under the International Baccalaureate MYP framework.</p>
+        </div>
+
+        <div class="achievement-card">
+          <div class="achievement-icon">🎤</div>
+          <h3>"Antardhvani" Industrial Interface</h3>
+          <p class="achievement-year">09/2014 · New Delhi</p>
+          <p>Delivered an innovation presentation on optimizing industrial utility for Delhi University's climate &amp; agricultural physics research.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Interests & Creative Pursuits ───── -->
+  <section class="section interests-section" id="interests">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">07</span> Interests &amp; Creative Pursuits</h2>
+      <p style="text-align:center; max-width:650px; margin:-30px auto 40px; color:var(--text-secondary); font-size:.95rem;">
+        When I am not in the physics laboratory or classroom, I channel my curiosity and creativity into arts, music, and exploration.
+      </p>
+      <div class="interests-cloud">
+        <div class="interest-chip">
+          <span class="chip-icon">🔬</span>
+          <strong>Experimental Analysis Research</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">🎹</span>
+          <strong>Playing Piano</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">🎵</span>
+          <strong>Music Appreciation</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">🎨</span>
+          <strong>Mandala Art</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">🚴</span>
+          <strong>Cycling</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">🎥</span>
+          <strong>Science Video Making</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">📊</span>
+          <strong>ICT Poster Making</strong>
+        </div>
+        <div class="interest-chip">
+          <span class="chip-icon">✈️</span>
+          <strong>Travelling &amp; Culture</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Testimonials & Endorsements ───── -->
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">08</span> What Colleagues &amp; Students Say</h2>
+      <div class="testimonials-slider" id="testimonials-slider">
+
+        <div class="testimonial-card active">
+          <p class="testimonial-text">"Ayushi brings a refreshing, infectious positivity to physics. Her mastery of Bloom's Taxonomy and ICT tools makes the most complex topics intuitive and approachable for every student."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SS</div>
+            <div>
+              <strong>Mrs. Sudha Sahay</strong>
+              <span>Academic Supervisor · The Shriram School, Aravali</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Ayushi's commitment to curriculum delivery and rigorous post-assessment analysis at Johnson Grammar School transformed how students engaged with physical sciences. A true educator with research rigor."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SR</div>
+            <div>
+              <strong>Mrs. D. Saraswati Rao</strong>
+              <span>Principal · Johnson Grammar School</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Her dual background in Condensed Matter Physics research and IB-MYP inquiry-based pedagogy empowers students to look at physics not as a set of formulas, but as a lens to understand reality."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">NS</div>
+            <div>
+              <strong>Mr. N. Sravan</strong>
+              <span>Director · Johnson Academy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Ms. Ayushi made physics my favorite class. From climate action simulations to hands-on experiments, she always encouraged us with a positive mindset and never let us fear mistakes."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AS</div>
+            <div>
+              <strong>MYP Science Student</strong>
+              <span>Lancers International School</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="testimonial-nav">
+        <button class="test-nav-btn" id="test-prev" aria-label="Previous testimonial">←</button>
+        <div class="test-dots" id="test-dots"></div>
+        <button class="test-nav-btn" id="test-next" aria-label="Next testimonial">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Contact Section ───── -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <h2 class="section-title"><span class="title-num">09</span> Get In Touch</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>I welcome opportunities to collaborate on physics pedagogy, international curricula (IB-MYP / Senior Secondary), student research mentorship, or academic consulting. Feel free to connect directly!</p>
+          <div class="contact-methods">
+            
+            <div class="contact-method">
+              <span class="contact-icon">📧</span>
+              <div>
+                <strong>Email</strong>
+                <p><a href="mailto:ayushisis1994@gmail.com" class="contact-link">ayushisis1994@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <span class="contact-icon">📱</span>
+              <div>
+                <strong>Phone</strong>
+                <p><a href="tel:+918368935632" class="contact-link">+91 8368935632</a></p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <span class="contact-icon">📍</span>
+              <div>
+                <strong>Location</strong>
+                <p>C-206, Mayflower Heights, Mallapur, Hyderabad, India</p>
+                <small style="color:var(--text-muted);">Also active in Gurugram / NCR region</small>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <span class="contact-icon">🔗</span>
+              <div>
+                <strong>LinkedIn</strong>
+                <p><a href="https://www.linkedin.com/in/ayushi-singh-4a8b56104" target="_blank" rel="noopener noreferrer" class="contact-link">linkedin.com/in/ayushi-singh-4a8b56104 ↗</a></p>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <span class="contact-icon">💡</span>
+              <div>
+                <strong>Quora</strong>
+                <p><a href="https://www.quora.com/profile/Ayushi-Singh-Sisodia" target="_blank" rel="noopener noreferrer" class="contact-link">quora.com/profile/Ayushi-Singh-Sisodia ↗</a></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Dr. / Prof. / Parent Name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="subject">Inquiry Topic</label>
+            <select id="subject" name="subject">
+              <option value="">Select a topic…</option>
+              <option value="school-hiring">School Faculty / Teaching Opportunity</option>
+              <option value="ib-myp">IB-MYP Science &amp; Physics Pedagogy</option>
+              <option value="research">Condensed Matter / Research Collaboration</option>
+              <option value="tutoring">Advanced Physics &amp; Mathematics Mentorship</option>
+              <option value="speaking">Workshops &amp; ICT Educator Training</option>
+              <option value="other">General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Share your inquiry or project details with Ayushi…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message to Ayushi</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Footer ───── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="logo-icon">⚛</span>
+        <p>© 2026 Ayushi Singh. All rights reserved. Physics Teacher &amp; Researcher.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#research">Research</a>
+        <a href="#curriculum">Curricula</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer-tagline">"In every falling apple, in every atomic lattice, and in every curious question — physics reveals the beauty of our universe."</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
