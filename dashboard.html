@@ -509,10 +509,10 @@
         </div>
 
         <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterItems('all', this)">All (8)</button>
+            <button class="filter-btn active" onclick="filterItems('all', this)">All (9)</button>
             <button class="filter-btn" onclick="filterItems('chemistry', this)">Chemistry (4)</button>
             <button class="filter-btn" onclick="filterItems('teaching', this)">Teaching (2)</button>
-            <button class="filter-btn" onclick="filterItems('more', this)">More (2)</button>
+            <button class="filter-btn" onclick="filterItems('more', this)">More (3)</button>
         </div>
 
         <div class="resource-list" id="resource-list">
@@ -650,6 +650,23 @@
                 <div class="card-footer">
                     <span>stem-with-ayushi</span>
                     <span>CV &amp; Bio</span>
+                </div>
+            </div>
+
+            <!-- 9. Official Educator CV & Resume -->
+            <div class="resource-card" data-category="more" onclick="selectResource(8)">
+                <div class="card-meta">
+                    <span class="card-tag tag-portfolio" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);">ATS Resume</span>
+                    <span style="font-size:0.68rem; color:var(--accent-amber); font-weight:700;">PDF &amp; Web</span>
+                </div>
+                <div class="card-icon-title">
+                    <span class="card-icon">📄</span>
+                    <h3 class="card-title">Curriculum Vitae &amp; Resume</h3>
+                </div>
+                <p class="card-desc">Updated 9+ years credentials, Oberoi IS, IB Personal Project Grade 7, M.Sc. Solid State &amp; publications.</p>
+                <div class="card-footer">
+                    <span>PDF / Print Ready</span>
+                    <span>Direct Download</span>
                 </div>
             </div>
 
@@ -797,6 +814,13 @@
                 icon: "👩‍🏫",
                 type: "frame",
                 file: "index.html"
+            },
+            {
+                title: "Curriculum Vitae & Official Resume",
+                subtitle: "Ayushi Singh · Oberoi International School · 9+ Years Pedagogy & Research",
+                icon: "📄",
+                type: "frame",
+                file: "resume/index.html"
             }
         ];
 
